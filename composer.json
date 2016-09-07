@@ -1,0 +1,12 @@
+{
+    "name": "yakamara/datetime",
+    "license": "MIT",
+
+    "autoload": {
+        "psr-4": { "Yakamara\\": "src/" }
+    },
+
+    "require": {
+        "php": ">=7.0"
+    }
+}

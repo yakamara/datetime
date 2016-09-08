@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara;
+namespace Yakamara\DateTime;
 
-use Yakamara\Holidays;
-use Yakamara\Holidays\HolidaysInterface;
+use Yakamara\DateTime\Holidays;
+use Yakamara\DateTime\Holidays\HolidaysInterface;
 
 /**
  * @method AbstractDateTime modify($modify)

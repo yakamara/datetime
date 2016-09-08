@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara;
+namespace Yakamara\DateTime;
 
 class DateTime extends AbstractDateTime
 {

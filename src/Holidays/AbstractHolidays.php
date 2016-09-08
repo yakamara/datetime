@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara\Holidays;
+namespace Yakamara\DateTime\Holidays;
 
-use Yakamara\AbstractDateTime;
-use Yakamara\Date;
+use Yakamara\DateTime\Date;
+use Yakamara\DateTime\DateTimeInterface;
 
 abstract class AbstractHolidays implements HolidaysInterface
 {
     private $holidays = [];
     private $easter = [];
 
-    public function isHoliday(AbstractDateTime $dateTime): bool
+    public function isHoliday(DateTimeInterface $dateTime): bool
     {
         return in_array(Date::createFromDateTime($dateTime), $this->getHolidays($dateTime->getYear()));
     }
 
-    public function isWorkday(AbstractDateTime $dateTime): bool
+    public function isWorkday(DateTimeInterface $dateTime): bool
     {
         if (!in_array($dateTime->getWeekday(), $this->getWorkdays())) {
             return false;

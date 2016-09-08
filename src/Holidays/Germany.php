@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara\Holidays;
+namespace Yakamara\DateTime\Holidays;
 
 class Germany extends AbstractHolidays
 {

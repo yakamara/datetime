@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara;
+namespace Yakamara\DateTime;
 
-use Yakamara\Holidays\HolidaysInterface;
+use Yakamara\DateTime\Holidays\HolidaysInterface;
 
 interface DateTimeInterface extends \DateTimeInterface
 {

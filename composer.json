@@ -3,7 +3,7 @@
     "license": "MIT",
 
     "autoload": {
-        "psr-4": { "Yakamara\\": "src/" }
+        "psr-4": { "Yakamara\\DateTime\\": "src/" }
     },
 
     "require": {

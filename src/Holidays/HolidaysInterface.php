@@ -9,26 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara\Holidays;
+namespace Yakamara\DateTime\Holidays;
 
-use Yakamara\AbstractDateTime;
-use Yakamara\Date;
+use Yakamara\DateTime\Date;
+use Yakamara\DateTime\DateTimeInterface;
 
 interface HolidaysInterface
 {
     /**
-     * @param \DateTimeInterface $dateTime
+     * @param DateTimeInterface $dateTime
      *
      * @return bool
      */
-    public function isHoliday(AbstractDateTime $dateTime): bool;
+    public function isHoliday(DateTimeInterface $dateTime): bool;
 
     /**
-     * @param \DateTimeInterface $dateTime
+     * @param DateTimeInterface $dateTime
      *
      * @return bool
      */
-    public function isWorkday(AbstractDateTime $dateTime): bool;
+    public function isWorkday(DateTimeInterface $dateTime): bool;
 
     /**
      * @param int|string $year

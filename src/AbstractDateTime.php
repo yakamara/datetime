@@ -14,6 +14,9 @@ namespace Yakamara;
 use Yakamara\Holidays;
 use Yakamara\Holidays\HolidaysInterface;
 
+/**
+ * @method AbstractDateTime modify(string $modify)
+ */
 abstract class AbstractDateTime extends \DateTimeImmutable
 {
     private static $defaultHolidays;
@@ -25,6 +28,10 @@ abstract class AbstractDateTime extends \DateTimeImmutable
      */
     public static function createFromDateTime(\DateTimeInterface $dateTime): self
     {
+        if ($dateTime instanceof static) {
+            return $dateTime;
+        }
+
         return new static($dateTime->format('Y-m-d H:i:s'));
     }
 
@@ -38,9 +45,56 @@ abstract class AbstractDateTime extends \DateTimeImmutable
         return new static('@' . $timestamp);
     }
 
+    public function __toString(): string
+    {
+        return $this->toIso();
+    }
+
+    abstract public function toIso(): string;
+
     public function formatLocalized(string $format): string
     {
         return strftime($format, $this->getTimestamp());
+    }
+
+    public function getYear(): int
+    {
+        return (int) $this->format('Y');
+    }
+
+    public function getMonth(): int
+    {
+        return (int) $this->format('m');
+    }
+
+    public function getDay(): int
+    {
+        return (int) $this->format('d');
+    }
+
+    public function getWeekday(): int
+    {
+        return (int) $this->format('w');
+    }
+
+    public function addYears(int $years): self
+    {
+        return $this->modify($years.' years');
+    }
+
+    public function addMonths(int $months): self
+    {
+        return $this->modify($months.' months');
+    }
+
+    public function addWeeks(int $weeks): self
+    {
+        return $this->modify($weeks.' weeks');
+    }
+
+    public function addDays(int $days): self
+    {
+        return $this->modify($days.' days');
     }
 
     public function isWorkday(HolidaysInterface $holidays = null): bool

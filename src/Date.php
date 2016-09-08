@@ -23,9 +23,14 @@ class Date extends AbstractDateTime
         return new self("$year-$month-$day");
     }
 
-    public function __toString(): string
+    public function toIso(): string
     {
         return $this->format('Y-m-d');
+    }
+
+    public function toDateTime(): DateTime
+    {
+        return DateTime::createFromDateTime($this);
     }
 
     public function add($interval)

@@ -11,6 +11,7 @@
 
 namespace Yakamara\Holidays;
 
+use Yakamara\AbstractDateTime;
 use Yakamara\Date;
 
 interface HolidaysInterface
@@ -20,21 +21,21 @@ interface HolidaysInterface
      *
      * @return bool
      */
-    public function isHoliday(\DateTimeInterface $dateTime): bool;
+    public function isHoliday(AbstractDateTime $dateTime): bool;
 
     /**
      * @param \DateTimeInterface $dateTime
      *
      * @return bool
      */
-    public function isWorkday(\DateTimeInterface $dateTime): bool;
+    public function isWorkday(AbstractDateTime $dateTime): bool;
 
     /**
      * @param int|string $year
      *
      * @return Date[]
      */
-    public function getHolidays($year): array;
+    public function getHolidays(int $year): array;
 
     /**
      * @return int[]

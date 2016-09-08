@@ -11,6 +11,7 @@
 
 namespace Yakamara\Holidays;
 
+use Yakamara\AbstractDateTime;
 use Yakamara\Date;
 
 abstract class AbstractHolidays implements HolidaysInterface
@@ -18,21 +19,21 @@ abstract class AbstractHolidays implements HolidaysInterface
     private $holidays = [];
     private $easter = [];
 
-    public function isHoliday(\DateTimeInterface $dateTime): bool
+    public function isHoliday(AbstractDateTime $dateTime): bool
     {
-        return in_array(Date::createFromDateTime($dateTime), $this->getHolidays($dateTime->format('Y')));
+        return in_array(Date::createFromDateTime($dateTime), $this->getHolidays($dateTime->getYear()));
     }
 
-    public function isWorkday(\DateTimeInterface $dateTime): bool
+    public function isWorkday(AbstractDateTime $dateTime): bool
     {
-        if (!in_array($dateTime->format('w'), $this->getWorkdays())) {
+        if (!in_array($dateTime->getWeekday(), $this->getWorkdays())) {
             return false;
         }
 
         return !$this->isHoliday($dateTime);
     }
 
-    public function getHolidays($year): array
+    public function getHolidays(int $year): array
     {
         if (isset($this->holidays[$year])) {
             return $this->holidays[$year];
@@ -56,7 +57,7 @@ abstract class AbstractHolidays implements HolidaysInterface
         return $this->holidays[$year];
     }
 
-    public function getEaster($year): Date
+    public function getEaster(int $year): Date
     {
         if (isset($this->easter[$year])) {
             return $this->easter[$year];

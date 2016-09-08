@@ -11,6 +11,9 @@
 
 namespace Yakamara;
 
+/**
+ * @method DateTime modify(string $modify)
+ */
 class DateTime extends AbstractDateTime
 {
     public static function create($year, $month, $day, $hour = 0, $minute = 0, $second = 0): self
@@ -27,9 +30,24 @@ class DateTime extends AbstractDateTime
         return $dateTime;
     }
 
-    public function __toString(): string
+    public function toIso(): string
     {
         return $this->format('Y-m-d H:i:s');
+    }
+
+    public function toIsoDate(): string
+    {
+        return $this->format('Y-m-d');
+    }
+
+    public function toIsoTime(): string
+    {
+        return $this->format('H:i:s');
+    }
+
+    public function toDate(): Date
+    {
+        return Date::createFromDateTime($this);
     }
 
     public function toUtc(): self
@@ -38,5 +56,35 @@ class DateTime extends AbstractDateTime
         $dateTime = $this->setTimezone(new \DateTimeZone('UTC'));
 
         return $dateTime;
+    }
+
+    public function getHour(): int
+    {
+        return (int) $this->format('H');
+    }
+
+    public function getMinute(): int
+    {
+        return (int) $this->format('i');
+    }
+
+    public function getSecond(): int
+    {
+        return (int) $this->format('s');
+    }
+
+    public function addHours(int $hours): self
+    {
+        return $this->modify($hours.' hours');
+    }
+
+    public function addMinutes(int $minutes): self
+    {
+        return $this->modify($minutes.' minutes');
+    }
+
+    public function addSeconds(int $seconds): self
+    {
+        return $this->modify($seconds.' seconds');
     }
 }

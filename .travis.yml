@@ -1,0 +1,20 @@
+language: php
+
+php:
+    - 7.0
+    - 7.1
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+install:
+    - phpenv config-rm xdebug.ini || return 0
+    - travis_retry composer global require friendsofphp/php-cs-fixer:^2.0@dev
+    - travis_retry composer update
+
+script:
+    - phpunit --verbose
+    - $HOME/.composer/vendor/bin/php-cs-fixer fix --dry-run --diff --verbose --using-cache=no

@@ -15,7 +15,7 @@ class Date extends AbstractDateTime
 {
     public function __construct(string $date = 'today', \DateTimeZone $timezone = null)
     {
-        parent::__construct(self::stripTime($date), new \DateTimeZone('UTC'));
+        parent::__construct(self::stripTime($date), $timezone);
     }
 
     public static function create($year, $month, $day): self
@@ -81,7 +81,7 @@ class Date extends AbstractDateTime
 
     public function setTimezone($timezone)
     {
-        return $this;
+        return new self($this->toIso(), $timezone);
     }
 
     private static function stripTime(string $dateTime): string
@@ -91,9 +91,9 @@ class Date extends AbstractDateTime
         }
 
         if ('@' === substr($dateTime, 0, 1)) {
-            return gmdate('Y-m-d 00:00:00', substr($dateTime, 1));
+            return date('Y-m-d 00:00:00', (int) substr($dateTime, 1));
         }
 
-        return preg_replace('/\d{1,2}:\d{1,2}:\d{1,2}(?:\.\d+)?/', '00:00:00', $dateTime);
+        return preg_replace('/\d{1,2}:\d{1,2}(?::\d{1,2}(?:\.\d+)?)?/', '00:00:00', $dateTime);
     }
 }

@@ -11,7 +11,6 @@
 
 namespace Yakamara\DateTime;
 
-use Yakamara\DateTime\Holidays;
 use Yakamara\DateTime\Holidays\HolidaysInterface;
 
 /**
@@ -46,7 +45,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     {
         $class = static::getClass();
 
-        return new $class('@' . $timestamp);
+        return new $class('@'.$timestamp);
     }
 
     /**
@@ -137,34 +136,32 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
-        $interval = \DateInterval::createFromDateString($days . ' days');
+        $interval = \DateInterval::createFromDateString(($days < 0 ? -1 : 1).' days');
         $days = abs($days);
         $date = $this;
 
         for ($i = 0; $i < $days; ++$i) {
             do {
                 $date = $date->add($interval);
-            } while ($holidays->isHoliday($date));
+            } while (!$holidays->isWorkday($date));
         }
 
         return $date;
     }
 
-    public function diffWorkdays(DateTimeInterface $date, HolidaysInterface $holidays = null): int
+    public function diffWorkdays(DateTimeInterface $date2, HolidaysInterface $holidays = null): int
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
         $date1 = Date::createFromDateTime($this);
-        $date2 = Date::createFromDateTime($date);
+        $date2 = Date::createFromDateTime($date2);
 
-        if ($date1 < $date2) {
-            $date = $date2;
-            $date2 = $date1;
-            $date1 = $date;
+        if ($date1 > $date2) {
+            return -$date2->diffWorkdays($date1, $holidays);
         }
 
-        for ($i = 0; $date2 < $date1; ++$i) {
-            $date2->addWorkdays(1, $holidays);
+        for ($i = 0; $date1 < $date2; ++$i) {
+            $date1 = $date1->addWorkdays(1, $holidays);
         }
 
         return $i;

@@ -63,17 +63,51 @@ abstract class AbstractHolidays implements HolidaysInterface
             return $this->easter[$year];
         }
 
-        $G = $year % 19;
-        $C = (int) ($year / 100);
-        $H = (int) ($C - (int) ($C / 4) - (int) ((8 * $C + 13) / 25) + 19 * $G + 15) % 30;
-        $I = (int) $H - (int) ($H / 28) * (1 - (int) ($H / 28) * (int) (29 / ($H + 1)) * ((int) (21 - $G) / 11));
-        $J = ($year + (int) ($year / 4) + $I + 2 - $C + (int) ($C / 4)) % 7;
-        $L = $I - $J;
-        $m = 3 + (int) (($L + 40) / 44);
-        $d = $L + 28 - 31 * ((int) ($m / 4));
-        $y = $year;
+        $firstDigits = intdiv($year, 100);
+        $remain19 = $year % 19;
 
-        return $this->easter[$year] = Date::create($y, $m, $d);
+        $temp = intdiv($firstDigits - 15, 2) + 202 - 11 * $remain19;
+
+        if (in_array($firstDigits, [21, 24, 25, 27, 28, 29, 30, 31, 32, 34, 35, 38], true)) {
+            $temp -= 1;
+        } elseif (in_array($firstDigits, [33, 36, 37, 39, 40], true)) {
+            $temp -= 2;
+        }
+
+        $temp = $temp % 30;
+
+        $tA = $temp + 21;
+        if (29 === $temp) {
+            --$tA;
+        }
+        if (28 === $temp && $remain19 > 10) {
+            --$tA;
+        }
+
+        $tB = ($tA - 19) % 7;
+
+        $tC = (40 - $firstDigits) % 4;
+        if (3 === $tC) {
+            ++$tC;
+        }
+        if ($tC > 1) {
+            ++$tC;
+        }
+
+        $temp = $year % 100;
+        $tD = ($temp + intdiv($temp, 4)) % 7;
+
+        $tE = ((20 - $tB - $tC - $tD) % 7) + 1;
+        $day = $tA + $tE;
+
+        if ($day > 31) {
+            $day = $day - 31;
+            $month = 4;
+        } else {
+            $month = 3;
+        }
+
+        return $this->easter[$year] = Date::create($year, $month, $day);
     }
 
     protected function getFixedHolidays(): array

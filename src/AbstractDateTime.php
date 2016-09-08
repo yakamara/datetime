@@ -15,7 +15,7 @@ use Yakamara\Holidays;
 use Yakamara\Holidays\HolidaysInterface;
 
 /**
- * @method AbstractDateTime modify(string $modify)
+ * @method AbstractDateTime modify($modify)
  */
 abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeInterface
 {
@@ -99,22 +99,22 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return (int) $this->format('w');
     }
 
-    public function addYears(int $years): self
+    public function addYears(int $years): DateTimeInterface
     {
         return $this->modify($years.' years');
     }
 
-    public function addMonths(int $months): self
+    public function addMonths(int $months): DateTimeInterface
     {
         return $this->modify($months.' months');
     }
 
-    public function addWeeks(int $weeks): self
+    public function addWeeks(int $weeks): DateTimeInterface
     {
         return $this->modify($weeks.' weeks');
     }
 
-    public function addDays(int $days): self
+    public function addDays(int $days): DateTimeInterface
     {
         return $this->modify($days.' days');
     }
@@ -133,7 +133,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return $holidays->isHoliday($this);
     }
 
-    public function addWorkdays(int $days, HolidaysInterface $holidays = null): self
+    public function addWorkdays(int $days, HolidaysInterface $holidays = null): DateTimeInterface
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
@@ -150,7 +150,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return $date;
     }
 
-    public function diffWorkdays(\DateTimeInterface $date, HolidaysInterface $holidays = null)
+    public function diffWorkdays(DateTimeInterface $date, HolidaysInterface $holidays = null): int
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 

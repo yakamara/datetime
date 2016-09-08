@@ -11,9 +11,6 @@
 
 namespace Yakamara;
 
-/**
- * @method DateTime modify(string $modify)
- */
 class DateTime extends AbstractDateTime
 {
     public static function create($year, $month, $day, $hour = 0, $minute = 0, $second = 0): self
@@ -78,17 +75,17 @@ class DateTime extends AbstractDateTime
         return (int) $this->format('s');
     }
 
-    public function addHours(int $hours): self
+    public function addHours(int $hours): DateTimeInterface
     {
         return $this->modify($hours.' hours');
     }
 
-    public function addMinutes(int $minutes): self
+    public function addMinutes(int $minutes): DateTimeInterface
     {
         return $this->modify($minutes.' minutes');
     }
 
-    public function addSeconds(int $seconds): self
+    public function addSeconds(int $seconds): DateTimeInterface
     {
         return $this->modify($seconds.' seconds');
     }

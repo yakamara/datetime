@@ -176,5 +176,5 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function setTimezone(\DateTimeZone $timezone);
+    public function setTimezone($timezone);
 }

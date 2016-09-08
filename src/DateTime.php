@@ -30,6 +30,11 @@ class DateTime extends AbstractDateTime
         return $dateTime;
     }
 
+    public static function now(): self
+    {
+        return new self();
+    }
+
     public function toIso(): string
     {
         return $this->format('Y-m-d H:i:s');

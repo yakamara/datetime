@@ -23,6 +23,27 @@ class Date extends AbstractDateTime
         return new self("$year-$month-$day");
     }
 
+    public static function today(): self
+    {
+        static $today;
+
+        return $today ?: $today = new self();
+    }
+
+    public static function yesterday(): self
+    {
+        static $yesterday;
+
+        return $yesterday ?: $yesterday = new self('yesterday');
+    }
+
+    public static function tomorrow(): self
+    {
+        static $tomorrow;
+
+        return $tomorrow ?: $tomorrow = new self('tomorrow');
+    }
+
     public function toIso(): string
     {
         return $this->format('Y-m-d');

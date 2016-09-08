@@ -32,7 +32,9 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
             return $dateTime;
         }
 
-        return new static($dateTime->format('Y-m-d H:i:s'));
+        $class = static::getClass();
+
+        return new $class($dateTime->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -42,7 +44,9 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
      */
     public static function createFromTimestamp(int $timestamp): self
     {
-        return new static('@' . $timestamp);
+        $class = static::getClass();
+
+        return new $class('@' . $timestamp);
     }
 
     /**
@@ -60,7 +64,9 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
             return static::createFromDateTime($dateTime);
         }
 
-        return new static($dateTime);
+        $class = static::getClass();
+
+        return new $class($dateTime);
     }
 
     public function __toString(): string
@@ -176,5 +182,12 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         }
 
         return self::$defaultHolidays;
+    }
+
+    private static function getClass(): string
+    {
+        $class = get_called_class();
+
+        return __CLASS__ === $class ? DateTime::class : $class;
     }
 }

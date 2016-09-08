@@ -17,7 +17,7 @@ use Yakamara\Holidays\HolidaysInterface;
 /**
  * @method AbstractDateTime modify(string $modify)
  */
-abstract class AbstractDateTime extends \DateTimeImmutable
+abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeInterface
 {
     private static $defaultHolidays;
 
@@ -67,8 +67,6 @@ abstract class AbstractDateTime extends \DateTimeImmutable
     {
         return $this->toIso();
     }
-
-    abstract public function toIso(): string;
 
     public function formatLocalized(string $format): string
     {

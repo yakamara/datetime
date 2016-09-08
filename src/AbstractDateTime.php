@@ -45,6 +45,24 @@ abstract class AbstractDateTime extends \DateTimeImmutable
         return new static('@' . $timestamp);
     }
 
+    /**
+     * @param int|string|\DateTimeInterface $dateTime
+     *
+     * @return static
+     */
+    public static function createFromUnknown($dateTime): self
+    {
+        if (is_int($dateTime)) {
+            return static::createFromTimestamp($dateTime);
+        }
+
+        if ($dateTime instanceof \DateTimeInterface) {
+            return static::createFromDateTime($dateTime);
+        }
+
+        return new static($dateTime);
+    }
+
     public function __toString(): string
     {
         return $this->toIso();

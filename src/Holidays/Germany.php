@@ -11,11 +11,19 @@
 
 namespace Yakamara\DateTime\Holidays;
 
+use Yakamara\DateTime\Date;
+
 class Germany extends AbstractHolidays
 {
     public function getWorkdays(): array
     {
-        return [1, 2, 3, 4, 5];
+        return [
+            Date::MONDAY,
+            Date::TUESDAY,
+            Date::WEDNESDAY,
+            Date::THURSDAY,
+            Date::FRIDAY,
+        ];
     }
 
     protected function getFixedHolidays(): array

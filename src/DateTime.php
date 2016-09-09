@@ -32,17 +32,17 @@ class DateTime extends AbstractDateTime
         return new self();
     }
 
-    public function toIso(): string
+    public function formatIso(): string
     {
         return $this->format('Y-m-d H:i:s');
     }
 
-    public function toIsoDate(): string
+    public function formatIsoDate(): string
     {
         return $this->format('Y-m-d');
     }
 
-    public function toIsoTime(): string
+    public function formatIsoTime(): string
     {
         return $this->format('H:i:s');
     }

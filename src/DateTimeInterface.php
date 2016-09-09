@@ -23,7 +23,7 @@ interface DateTimeInterface extends \DateTimeInterface
     /**
      * @return string
      */
-    public function toIso(): string;
+    public function formatIso(): string;
 
     /**
      * @param string $format

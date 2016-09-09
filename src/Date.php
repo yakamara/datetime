@@ -44,7 +44,7 @@ class Date extends AbstractDateTime
         return $tomorrow ?: $tomorrow = new self('tomorrow');
     }
 
-    public function toIso(): string
+    public function formatIso(): string
     {
         return $this->format('Y-m-d');
     }
@@ -81,7 +81,7 @@ class Date extends AbstractDateTime
 
     public function setTimezone($timezone)
     {
-        return new self($this->toIso(), $timezone);
+        return new self($this->formatIso(), $timezone);
     }
 
     private static function stripTime(string $dateTime): string

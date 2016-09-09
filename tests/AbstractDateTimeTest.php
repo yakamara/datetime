@@ -107,32 +107,32 @@ final class AbstractDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
-        $this->assertSame('2018-09-08 22:07:00', $dateTime->addYears(2)->toIso());
-        $this->assertSame('2013-09-08 22:07:00', $dateTime->addYears(-3)->toIso());
+        $this->assertSame('2018-09-08 22:07:00', $dateTime->addYears(2)->formatIso());
+        $this->assertSame('2013-09-08 22:07:00', $dateTime->addYears(-3)->formatIso());
     }
 
     public function testAddMonths()
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
-        $this->assertSame('2016-11-08 22:07:00', $dateTime->addMonths(2)->toIso());
-        $this->assertSame('2016-06-08 22:07:00', $dateTime->addMonths(-3)->toIso());
+        $this->assertSame('2016-11-08 22:07:00', $dateTime->addMonths(2)->formatIso());
+        $this->assertSame('2016-06-08 22:07:00', $dateTime->addMonths(-3)->formatIso());
     }
 
     public function testAddWeeks()
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
-        $this->assertSame('2016-09-22 22:07:00', $dateTime->addWeeks(2)->toIso());
-        $this->assertSame('2016-08-18 22:07:00', $dateTime->addWeeks(-3)->toIso());
+        $this->assertSame('2016-09-22 22:07:00', $dateTime->addWeeks(2)->formatIso());
+        $this->assertSame('2016-08-18 22:07:00', $dateTime->addWeeks(-3)->formatIso());
     }
 
     public function testAddDays()
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
-        $this->assertSame('2016-09-10 22:07:00', $dateTime->addDays(2)->toIso());
-        $this->assertSame('2016-09-05 22:07:00', $dateTime->addDays(-3)->toIso());
+        $this->assertSame('2016-09-10 22:07:00', $dateTime->addDays(2)->formatIso());
+        $this->assertSame('2016-09-05 22:07:00', $dateTime->addDays(-3)->formatIso());
     }
 
     /**

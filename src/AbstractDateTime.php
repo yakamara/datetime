@@ -70,7 +70,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
 
     public function __toString(): string
     {
-        return $this->toIso();
+        return $this->formatIso();
     }
 
     public function formatLocalized(string $format): string

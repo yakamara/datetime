@@ -1,6 +1,15 @@
 {
     "name": "yakamara/datetime",
+    "description": "Extended DateTime and Date classes (extending DateTimeImmutable)",
+    "keywords": ["DateTime", "Date", "Holidays", "Workdays"],
+    "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Gregor Harlan",
+            "email": "gharlan@web.de"
+        }
+    ],
 
     "autoload": {
         "psr-4": { "Yakamara\\DateTime\\": "src/" }

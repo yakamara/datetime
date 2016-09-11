@@ -13,6 +13,7 @@ namespace Yakamara\DateTime\Tests;
 
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
+use Yakamara\DateTime\Range\DateTimeRange;
 
 final class DateTest extends \PHPUnit_Framework_TestCase
 {
@@ -106,7 +107,7 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($input, (new Date($input))->formatIso());
     }
 
-    public function toDateTime()
+    public function testToDateTime()
     {
         $date = new Date();
         $dateTime = $date->toDateTime();
@@ -114,5 +115,98 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(DateTime::class, $dateTime);
         $this->assertSame($date->formatIso(), $dateTime->formatIsoDate());
         $this->assertSame('00:00:00', $dateTime->formatIsoTime());
+    }
+
+    public function testToRange()
+    {
+        $date = new Date('2016-09-11');
+        $range = $date->toRange();
+
+        $this->assertInstanceOf(DateTimeRange::class, $range);
+        $this->assertSame('2016-09-11 00:00:00', $range->getStart()->formatIso());
+        $this->assertSame('2016-09-12 00:00:00', $range->getEnd()->formatIso());
+    }
+
+    public function testToUtcRange()
+    {
+        $date = new Date('2016-09-11');
+        $range = $date->toUtcRange();
+
+        $this->assertInstanceOf(DateTimeRange::class, $range);
+        $this->assertSame('2016-09-10 22:00:00', $range->getStart()->formatIso());
+        $this->assertSame('2016-09-11 22:00:00', $range->getEnd()->formatIso());
+    }
+
+    /**
+     * @dataProvider provideIsStartOfYear
+     */
+    public function testIsStartOfYear(bool $expected, string $date)
+    {
+        $this->assertSame($expected, (new Date($date))->isStartOfYear());
+    }
+
+    public function provideIsStartOfYear(): array
+    {
+        return [
+            [true, '2016-01-01'],
+            [true, '2017-01-01'],
+            [false, '2016-12-31'],
+            [false, '2016-01-02'],
+            [false, '2016-05-01'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIsEndOfYear
+     */
+    public function testIsEndOfYear(bool $expected, string $date)
+    {
+        $this->assertSame($expected, (new Date($date))->isEndOfYear());
+    }
+
+    public function provideIsEndOfYear(): array
+    {
+        return [
+            [true, '2016-12-31'],
+            [true, '2017-12-31'],
+            [false, '2016-01-01'],
+            [false, '2016-05-31'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIsStartOfMonth
+     */
+    public function testIsStartOfMonth(bool $expected, string $date)
+    {
+        $this->assertSame($expected, (new Date($date))->isStartOfMonth());
+    }
+
+    public function provideIsStartOfMonth(): array
+    {
+        return [
+            [true, '2016-01-01'],
+            [true, '2016-05-01'],
+            [false, '2016-02-29'],
+            [false, '2016-01-02'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIsEndOfMonth
+     */
+    public function testIsEndOfMonth(bool $expected, string $date)
+    {
+        $this->assertSame($expected, (new Date($date))->isEndOfMonth());
+    }
+
+    public function provideIsEndOfMonth(): array
+    {
+        return [
+            [true, '2016-01-31'],
+            [true, '2016-02-29'],
+            [false, '2016-03-01'],
+            [false, '2016-05-30'],
+        ];
     }
 }

@@ -91,7 +91,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('22:07:02', (new DateTime('2016-09-08 22:07:02'))->formatIsoTime());
     }
 
-    public function toDate()
+    public function testToDate()
     {
         $dateTime = new DateTime();
         $date = $dateTime->toDate();
@@ -100,7 +100,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($dateTime->formatIsoDate(), $date->formatIso());
     }
 
-    public function toUtc()
+    public function testToUtc()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
@@ -126,6 +126,64 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
         $this->assertSame(2, $dateTime->getSecond());
+    }
+
+    /**
+     * @dataProvider provideIsStartOfYear
+     */
+    public function testIsStartOfYear(bool $expected, string $dateTime)
+    {
+        $this->assertSame($expected, (new DateTime($dateTime))->isStartOfYear());
+    }
+
+    public function provideIsStartOfYear(): array
+    {
+        return [
+            [true, '2016-01-01 00:00:00'],
+            [true, '2017-01-01 00:00:00'],
+            [false, '2016-12-31 00:00:00'],
+            [false, '2016-01-02 00:00:00'],
+            [false, '2016-05-01 00:00:00'],
+            [false, '2016-01-01 00:00:01'],
+            [false, '2016-01-01 02:00:00'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIsStartOfMonth
+     */
+    public function testIsStartOfMonth(bool $expected, string $dateTime)
+    {
+        $this->assertSame($expected, (new DateTime($dateTime))->isStartOfMonth());
+    }
+
+    public function provideIsStartOfMonth(): array
+    {
+        return [
+            [true, '2016-01-01 00:00:00'],
+            [true, '2016-05-01 00:00:00'],
+            [false, '2016-02-29 00:00:00'],
+            [false, '2016-01-02 00:00:00'],
+            [false, '2016-01-01 00:00:01'],
+            [false, '2016-01-01 02:00:00'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIsMidnight
+     */
+    public function testIsMidnight(bool $expected, string $dateTime)
+    {
+        $this->assertSame($expected, (new DateTime($dateTime))->isMidnight());
+    }
+
+    public function provideIsMidnight(): array
+    {
+        return [
+            [true, '2016-09-11 00:00:00'],
+            [false, '2016-09-11 23:59:59'],
+            [false, '2016-09-11 12:00:00'],
+        ];
     }
 
     public function testAddHours()

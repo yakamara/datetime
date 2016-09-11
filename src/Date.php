@@ -11,6 +11,8 @@
 
 namespace Yakamara\DateTime;
 
+use Yakamara\DateTime\Range\DateTimeRange;
+
 class Date extends AbstractDateTime
 {
     public function __construct(string $date = 'today', \DateTimeZone $timezone = null)
@@ -52,6 +54,40 @@ class Date extends AbstractDateTime
     public function toDateTime(): DateTime
     {
         return DateTime::createFromDateTime($this);
+    }
+
+    public function toRange(): DateTimeRange
+    {
+        $dateTime = $this->toDateTime();
+
+        return new DateTimeRange($dateTime, $dateTime->addDays(1));
+    }
+
+    public function toUtcRange(): DateTimeRange
+    {
+        $dateTime = $this->toDateTime()->toUtc();
+
+        return new DateTimeRange($dateTime, $dateTime->addDays(1));
+    }
+
+    public function isStartOfYear(): bool
+    {
+        return '01-01' === $this->format('m-d');
+    }
+
+    public function isEndOfYear(): bool
+    {
+        return '12-31' === $this->format('m-d');
+    }
+
+    public function isStartOfMonth(): bool
+    {
+        return 1 === $this->getDay();
+    }
+
+    public function isEndOfMonth(): bool
+    {
+        return 1 === $this->addDays(1)->getDay();
     }
 
     public function add($interval)

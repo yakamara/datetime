@@ -46,6 +46,14 @@ final class AbstractDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($input, $dateTime->getTimestamp());
     }
 
+    public function testCreateFromFormat()
+    {
+        $dateTime = AbstractDateTime::createFromFormat('d.m.Y His', '12.09.2016 151800');
+
+        $this->assertInstanceOf(DateTime::class, $dateTime);
+        $this->assertSame('2016-09-12 15:18:00', $dateTime->formatIso());
+    }
+
     public function testCreateFromUnknown()
     {
         $input = time();

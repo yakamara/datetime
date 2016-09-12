@@ -46,6 +46,15 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(date('Y-m-d', $input), $date->formatIso());
     }
 
+    public function testCreateFromFormat()
+    {
+        $date = Date::createFromFormat('d.m.Y His', '12.09.2016 151800');
+
+        $this->assertInstanceOf(Date::class, $date);
+        $this->assertSame('2016-09-12', $date->formatIso());
+        $this->assertSame('00:00:00', $date->format('H:i:s'));
+    }
+
     public function testConstruct()
     {
         $date = new Date();

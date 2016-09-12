@@ -41,7 +41,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
 
         $class = static::getClass();
 
-        return new $class($dateTime->format('Y-m-d H:i:s'));
+        return new $class($dateTime->format('Y-m-d H:i:s'), $dateTime->getTimezone());
     }
 
     /**
@@ -54,6 +54,20 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         $class = static::getClass();
 
         return new $class('@'.$timestamp);
+    }
+
+    /**
+     * @param string        $format
+     * @param string        $dateTime
+     * @param \DateTimeZone $timezone
+     *
+     * @return static
+     */
+    public static function createFromFormat($format, $dateTime, $timezone = null): self
+    {
+        $class = static::getClass();
+
+        return $class::createFromDateTime(\DateTimeImmutable::createFromFormat($format, $dateTime, $timezone));
     }
 
     /**

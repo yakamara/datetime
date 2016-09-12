@@ -57,10 +57,19 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
     }
 
+    public function testCreateUtc()
+    {
+        $dateTime = DateTime::createUtc('2016-09-08 22:07:02');
+
+        $this->assertEquals(DateTime::getUtcTimezone(), $dateTime->getTimezone());
+        $this->assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
+    }
+
     public function testCreateFromUtc()
     {
         $dateTime = DateTime::createFromUtc('2016-09-08 22:07:02');
 
+        $this->assertEquals(DateTime::getDefaultTimezone(), $dateTime->getTimezone());
         $this->assertSame('2016-09-09 00:07:02', $dateTime->formatIso());
     }
 

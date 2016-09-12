@@ -189,6 +189,18 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return self::$defaultHolidays;
     }
 
+    public static function getDefaultTimezone(): \DateTimeZone
+    {
+        return new \DateTimeZone(date_default_timezone_get());
+    }
+
+    public static function getUtcTimezone(): \DateTimeZone
+    {
+        static $utc;
+
+        return $utc ?: $utc = new \DateTimeZone('UTC');
+    }
+
     private static function getClass(): string
     {
         $class = get_called_class();

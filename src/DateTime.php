@@ -21,13 +21,14 @@ class DateTime extends AbstractDateTime
         return new self("$year-$month-$day $hour:$minute:$second");
     }
 
+    public static function createUtc(string $dateTime): self
+    {
+        return new self($dateTime, self::getUtcTimezone());
+    }
+
     public static function createFromUtc(string $dateTime): self
     {
-        /** @var self $dateTime */
-        $dateTime = new self($dateTime, new \DateTimeZone('UTC'));
-        $dateTime = $dateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-
-        return $dateTime;
+        return self::createUtc($dateTime)->setTimezone(self::getDefaultTimezone());
     }
 
     public static function now(): self
@@ -58,7 +59,7 @@ class DateTime extends AbstractDateTime
     public function toUtc(): self
     {
         /** @var self $dateTime */
-        $dateTime = $this->setTimezone(new \DateTimeZone('UTC'));
+        $dateTime = $this->setTimezone(self::getUtcTimezone());
 
         return $dateTime;
     }

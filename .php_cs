@@ -11,12 +11,6 @@ HEADER;
 
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('propel')
-    ->exclude('var')
-    ->exclude('web')
-    ->exclude('Resources')
-    ->notPath('Model/Base')
-    ->notPath('Model/Map')
     ->in(__DIR__)
 ;
 

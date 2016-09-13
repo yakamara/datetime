@@ -100,6 +100,11 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return strftime($format, $this->getTimestamp());
     }
 
+    public function toMutable(): \DateTime
+    {
+        return new \DateTime($this->formatIso(), $this->getTimezone());
+    }
+
     public function getYear(): int
     {
         return (int) $this->format('Y');

@@ -116,6 +116,15 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($input, (new Date($input))->formatIso());
     }
 
+    public function testToMutable()
+    {
+        $date = new Date('2016-09-08');
+        $mutable = $date->toMutable();
+
+        $this->assertInstanceOf(\DateTime::class, $mutable);
+        $this->assertEquals($date, $mutable);
+    }
+
     public function testToDateTime()
     {
         $date = new Date();

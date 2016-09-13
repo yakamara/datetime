@@ -33,6 +33,11 @@ interface DateTimeInterface extends \DateTimeInterface
     public function formatLocalized(string $format): string;
 
     /**
+     * @return \DateTime
+     */
+    public function toMutable(): \DateTime;
+
+    /**
      * @return int
      */
     public function getYear(): int;

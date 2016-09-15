@@ -108,6 +108,31 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('22:07:02', (new DateTime('2016-09-08 22:07:02'))->formatIsoTime());
     }
 
+    public function testFormatIntl()
+    {
+        $dateTime = new DateTime('2016-09-08 22:07:02');
+
+        $this->assertSame('8. September 2016 um 22:07:02 MESZ', $dateTime->formatIntl());
+        $this->assertSame('8. September 2016 um 22:07', $dateTime->formatIntl(\IntlDateFormatter::LONG, \IntlDateFormatter::SHORT));
+        $this->assertSame('08.09.16, 22:07', $dateTime->formatIntl(\IntlDateFormatter::SHORT));
+    }
+
+    public function testFormatIntlDate()
+    {
+        $dateTime = new DateTime('2016-09-08 22:07:02');
+
+        $this->assertSame('8. September 2016', $dateTime->formatIntlDate());
+        $this->assertSame('08.09.16', $dateTime->formatIntlDate(\IntlDateFormatter::SHORT));
+    }
+
+    public function testFormatIntlTime()
+    {
+        $dateTime = new DateTime('2016-09-08 22:07:02');
+
+        $this->assertSame('22:07:02 MESZ', $dateTime->formatIntlTime());
+        $this->assertSame('22:07', $dateTime->formatIntlTime(\IntlDateFormatter::SHORT));
+    }
+
     public function testToMutable()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');

@@ -100,6 +100,13 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return strftime($format, $this->getTimestamp());
     }
 
+    public function formatIntl(int $format = \IntlDateFormatter::LONG, int $timeFormat = null): string
+    {
+        $formatter = new \IntlDateFormatter(\Locale::getDefault(), $format, $timeFormat ?? $format);
+
+        return $formatter->format($this->getTimestamp());
+    }
+
     public function toMutable(): \DateTime
     {
         return new \DateTime($this->formatIso(), $this->getTimezone());

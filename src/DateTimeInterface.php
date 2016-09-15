@@ -33,6 +33,14 @@ interface DateTimeInterface extends \DateTimeInterface
     public function formatLocalized(string $format): string;
 
     /**
+     * @param int $format
+     * @param int $timeFormat
+     *
+     * @return string
+     */
+    public function formatIntl(int $format = \IntlDateFormatter::LONG, int $timeFormat = null): string;
+
+    /**
      * @return \DateTime
      */
     public function toMutable(): \DateTime;

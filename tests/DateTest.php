@@ -116,6 +116,14 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($input, (new Date($input))->formatIso());
     }
 
+    public function testFormatIntl()
+    {
+        $date = new Date('2016-09-08');
+
+        $this->assertSame('8. September 2016', $date->formatIntl());
+        $this->assertSame('08.09.16', $date->formatIntl(\IntlDateFormatter::SHORT));
+    }
+
     public function testToMutable()
     {
         $date = new Date('2016-09-08');

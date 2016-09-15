@@ -51,6 +51,16 @@ class DateTime extends AbstractDateTime
         return $this->format('H:i:s');
     }
 
+    public function formatIntlDate(int $format = \IntlDateFormatter::LONG): string
+    {
+        return static::formatIntl($format, \IntlDateFormatter::NONE);
+    }
+
+    public function formatIntlTime(int $format = \IntlDateFormatter::LONG): string
+    {
+        return static::formatIntl(\IntlDateFormatter::NONE, $format);
+    }
+
     public function toDate(): Date
     {
         return Date::createFromDateTime($this);

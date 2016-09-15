@@ -187,4 +187,17 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
             [false, new DateTime('2016-09-12 00:00:00')],
         ];
     }
+
+    public function testCount()
+    {
+        $this->assertCount(1, new DateRange(Date::today(), Date::today()));
+        $this->assertCount(3, new DateRange(Date::yesterday(), Date::tomorrow()));
+    }
+
+    public function testGetIterator()
+    {
+        $dateRange = new DateRange(Date::yesterday(), Date::tomorrow());
+
+        $this->assertEquals([Date::yesterday(), Date::today(), Date::tomorrow()], iterator_to_array($dateRange));
+    }
 }

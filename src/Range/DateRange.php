@@ -19,7 +19,7 @@ use Yakamara\DateTime\DateTimeInterface;
  * @method Date getStart()
  * @method Date getEnd()
  */
-class DateRange extends AbstractDateTimeRange
+class DateRange extends AbstractDateTimeRange implements \IteratorAggregate, \Countable
 {
     public function __construct(Date $start, Date $end)
     {
@@ -66,5 +66,20 @@ class DateRange extends AbstractDateTimeRange
         }
 
         return $this->getStart() <= $dateTime && $this->getEnd() >= $dateTime;
+    }
+
+    public function count(): int
+    {
+        return $this->getStart()->diff($this->getEnd())->days + 1;
+    }
+
+    /**
+     * @return \Generator|Date[]
+     */
+    public function getIterator(): \Generator
+    {
+        for ($date = $this->getStart(); $date <= $this->getEnd(); $date = $date->addDays(1)) {
+            yield $date;
+        }
     }
 }

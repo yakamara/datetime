@@ -112,9 +112,17 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('8. September 2016 um 22:07:02 MESZ', $dateTime->formatIntl());
-        $this->assertSame('8. September 2016 um 22:07', $dateTime->formatIntl(\IntlDateFormatter::LONG, \IntlDateFormatter::SHORT));
-        $this->assertSame('08.09.16, 22:07', $dateTime->formatIntl(\IntlDateFormatter::SHORT));
+        $string = $dateTime->formatIntl();
+        $this->assertStringStartsWith('8. September 2016', $string);
+        $this->assertStringEndsWith('22:07:02 MESZ', $string);
+
+        $string = $dateTime->formatIntl(\IntlDateFormatter::MEDIUM, \IntlDateFormatter::SHORT);
+        $this->assertStringStartsWith('08.09.2016', $string);
+        $this->assertStringEndsWith('22:07', $string);
+
+        $string = $dateTime->formatIntl(\IntlDateFormatter::SHORT);
+        $this->assertStringStartsWith('08.09.16', $string);
+        $this->assertStringEndsWith('22:07', $string);
     }
 
     public function testFormatIntlDate()

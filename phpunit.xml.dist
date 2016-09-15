@@ -9,6 +9,7 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <ini name="date.timezone" value="Europe/Berlin" />
+        <ini name="intl.default_locale" value="de-DE" />
     </php>
 
     <testsuites>

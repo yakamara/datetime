@@ -28,6 +28,11 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
 
     private static $defaultHolidays;
 
+    public function __toString(): string
+    {
+        return $this->formatIso();
+    }
+
     /**
      * @param \DateTimeInterface $dateTime
      *
@@ -88,11 +93,6 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         $class = static::getClass();
 
         return new $class($dateTime);
-    }
-
-    public function __toString(): string
-    {
-        return $this->formatIso();
     }
 
     public function formatLocalized(string $format): string

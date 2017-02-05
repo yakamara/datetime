@@ -19,14 +19,20 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => false,
         'blank_line_before_return' => false,
         'combine_consecutive_unsets' => true,
         'declare_strict_types' => true,
         'header_comment' => ['header' => $header],
+        'heredoc_to_nowdoc' => true,
+        'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_class_elements' => true,
         'ordered_imports' => true,
-        'short_array_syntax' => true,
+        'phpdoc_order' => true,
     ])
-    ->finder($finder)
+    ->setFinder($finder)
 ;

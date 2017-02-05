@@ -12,7 +12,7 @@ cache:
 
 install:
     - phpenv config-rm xdebug.ini || return 0
-    - travis_retry composer global require friendsofphp/php-cs-fixer:^2.0@dev
+    - travis_retry composer global require friendsofphp/php-cs-fixer
     - travis_retry composer update
 
 script:

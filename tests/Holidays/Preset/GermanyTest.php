@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara\DateTime\Tests\Holidays;
+namespace Yakamara\DateTime\Tests\Holidays\Preset;
 
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 use Yakamara\DateTime\DateTimeInterface;
-use Yakamara\DateTime\Holidays\Germany;
+use Yakamara\DateTime\Holidays\Preset\Germany;
 
 final class GermanyTest extends \PHPUnit_Framework_TestCase
 {

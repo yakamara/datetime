@@ -209,7 +209,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     public static function getDefaultHolidays(): HolidaysInterface
     {
         if (!self::$defaultHolidays) {
-            self::$defaultHolidays = new Holidays\Germany();
+            self::$defaultHolidays = new Holidays\Preset\Germany();
         }
 
         return self::$defaultHolidays;

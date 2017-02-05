@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Yakamara\DateTime\Holidays;
+namespace Yakamara\DateTime\Holidays\Preset;
 
 use Yakamara\DateTime\Date;
+use Yakamara\DateTime\Holidays\AbstractHolidays;
 
 class Germany extends AbstractHolidays
 {

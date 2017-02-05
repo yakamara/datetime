@@ -51,8 +51,12 @@ class Date extends AbstractDateTime
         return $this->format('Y-m-d');
     }
 
-    public function formatIntl(int $format = \IntlDateFormatter::LONG, int $timeFormat = null): string
+    public function formatIntl(int $format = null, int $timeFormat = null): string
     {
+        if (!class_exists(\IntlDateFormatter::class)) {
+            throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
+        }
+
         return parent::formatIntl($format, $timeFormat ?? \IntlDateFormatter::NONE);
     }
 

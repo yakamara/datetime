@@ -51,14 +51,22 @@ class DateTime extends AbstractDateTime
         return $this->format('H:i:s');
     }
 
-    public function formatIntlDate(int $format = \IntlDateFormatter::LONG): string
+    public function formatIntlDate(int $format = null): string
     {
+        if (!class_exists(\IntlDateFormatter::class)) {
+            throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
+        }
+
         return static::formatIntl($format, \IntlDateFormatter::NONE);
     }
 
-    public function formatIntlTime(int $format = \IntlDateFormatter::LONG): string
+    public function formatIntlTime(int $format = null): string
     {
-        return static::formatIntl(\IntlDateFormatter::NONE, $format);
+        if (!class_exists(\IntlDateFormatter::class)) {
+            throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
+        }
+
+        return static::formatIntl(\IntlDateFormatter::NONE, $format ?? \IntlDateFormatter::LONG);
     }
 
     public function toDate(): Date

@@ -100,9 +100,16 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return strftime($format, $this->getTimestamp());
     }
 
-    public function formatIntl(int $format = \IntlDateFormatter::LONG, int $timeFormat = null): string
+    public function formatIntl(int $format = null, int $timeFormat = null): string
     {
-        $formatter = new \IntlDateFormatter(\Locale::getDefault(), $format, $timeFormat ?? $format);
+        if (!class_exists(\IntlDateFormatter::class)) {
+            throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
+        }
+
+        $format = $format ?? \IntlDateFormatter::LONG;
+        $timeFormat = $timeFormat ?? $format;
+
+        $formatter = new \IntlDateFormatter(\Locale::getDefault(), $format, $timeFormat);
 
         return $formatter->format($this->getTimestamp());
     }

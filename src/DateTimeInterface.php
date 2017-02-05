@@ -38,7 +38,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return string
      */
-    public function formatIntl(int $format = \IntlDateFormatter::LONG, int $timeFormat = null): string;
+    public function formatIntl(int $format = null, int $timeFormat = null): string;
 
     /**
      * @return \DateTime

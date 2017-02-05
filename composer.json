@@ -1,7 +1,7 @@
 {
     "name": "yakamara/datetime",
-    "description": "Extended DateTime and Date classes (extending DateTimeImmutable)",
-    "keywords": ["DateTime", "Date", "Holidays", "Workdays"],
+    "description": "Extended DateTime and Date classes (extending DateTimeImmutable), DateTimeRange and DateRange classes",
+    "keywords": ["DateTime", "Date", "DateRange", "Holidays", "Workdays"],
     "type": "library",
     "license": "MIT",
     "authors": [

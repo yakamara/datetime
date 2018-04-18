@@ -34,8 +34,6 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     }
 
     /**
-     * @param \DateTimeInterface $dateTime
-     *
      * @return static
      */
     public static function createFromDateTime(\DateTimeInterface $dateTime): self
@@ -50,8 +48,6 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     }
 
     /**
-     * @param int $timestamp
-     *
      * @return static
      */
     public static function createFromTimestamp(int $timestamp): self
@@ -62,13 +58,12 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     }
 
     /**
-     * @param string        $format
-     * @param string        $dateTime
-     * @param \DateTimeZone $timezone
+     * @param string $format
+     * @param string $dateTime
      *
      * @return static
      */
-    public static function createFromFormat($format, $dateTime, $timezone = null): self
+    public static function createFromFormat($format, $dateTime, \DateTimeZone $timezone = null): self
     {
         $class = static::getClass();
 
@@ -139,21 +134,33 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return (int) $this->format('w');
     }
 
+    /**
+     * @return static
+     */
     public function addYears(int $years): DateTimeInterface
     {
         return $this->modify($years.' years');
     }
 
+    /**
+     * @return static
+     */
     public function addMonths(int $months): DateTimeInterface
     {
         return $this->modify($months.' months');
     }
 
+    /**
+     * @return static
+     */
     public function addWeeks(int $weeks): DateTimeInterface
     {
         return $this->modify($weeks.' weeks');
     }
 
+    /**
+     * @return static
+     */
     public function addDays(int $days): DateTimeInterface
     {
         return $this->modify($days.' days');

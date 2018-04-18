@@ -15,80 +15,40 @@ use Yakamara\DateTime\Holidays\HolidaysInterface;
 
 interface DateTimeInterface extends \DateTimeInterface
 {
-    /**
-     * @return string
-     */
     public function __toString(): string;
 
-    /**
-     * @return string
-     */
     public function formatIso(): string;
 
-    /**
-     * @param string $format
-     *
-     * @return string
-     */
     public function formatLocalized(string $format): string;
 
-    /**
-     * @param int $format
-     * @param int $timeFormat
-     *
-     * @return string
-     */
     public function formatIntl(int $format = null, int $timeFormat = null): string;
 
-    /**
-     * @return \DateTime
-     */
     public function toMutable(): \DateTime;
 
-    /**
-     * @return int
-     */
     public function getYear(): int;
 
-    /**
-     * @return int
-     */
     public function getMonth(): int;
 
-    /**
-     * @return int
-     */
     public function getDay(): int;
 
-    /**
-     * @return int
-     */
     public function getWeekday(): int;
 
     /**
-     * @param int $years
-     *
      * @return static
      */
     public function addYears(int $years): self;
 
     /**
-     * @param int $months
-     *
      * @return static
      */
     public function addMonths(int $months): self;
 
     /**
-     * @param int $weeks
-     *
      * @return static
      */
     public function addWeeks(int $weeks): self;
 
     /**
-     * @param int $days
-     *
      * @return static
      */
     public function addDays(int $days): self;
@@ -171,7 +131,10 @@ interface DateTimeInterface extends \DateTimeInterface
     public function setISODate($year, $week, $day = 1);
 
     /**
-     * @param \DateInterval $interval
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
      *
      * @return static
      */

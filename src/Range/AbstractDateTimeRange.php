@@ -43,7 +43,7 @@ abstract class AbstractDateTimeRange implements DateTimeRangeInterface
         return $this->start->diff($this->end);
     }
 
-    public function diffWorkdays(HolidaysInterface $holidays = null): int
+    public function diffWorkdays(?HolidaysInterface $holidays = null): int
     {
         return $this->start->diffWorkdays($this->end, $holidays);
     }

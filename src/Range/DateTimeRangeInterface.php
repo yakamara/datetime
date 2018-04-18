@@ -16,62 +16,25 @@ use Yakamara\DateTime\Holidays\HolidaysInterface;
 
 interface DateTimeRangeInterface
 {
-    /**
-     * @return DateTimeInterface
-     */
     public function getStart(): DateTimeInterface;
 
-    /**
-     * @return DateTimeInterface
-     */
     public function getEnd(): DateTimeInterface;
 
-    /**
-     * @return \DateInterval
-     */
     public function diff(): \DateInterval;
 
-    /**
-     * @param null|HolidaysInterface $holidays
-     *
-     * @return int
-     */
-    public function diffWorkdays(HolidaysInterface $holidays = null): int;
+    public function diffWorkdays(?HolidaysInterface $holidays = null): int;
 
-    /**
-     * @return bool
-     */
     public function isSameYear(): bool;
 
-    /**
-     * @return bool
-     */
     public function isSameMonth(): bool;
 
-    /**
-     * @return bool
-     */
     public function isSameDay(): bool;
 
-    /**
-     * @return bool
-     */
     public function isWholeYear(): bool;
 
-    /**
-     * @return bool
-     */
     public function isWholeMonth(): bool;
 
-    /**
-     * @return bool
-     */
     public function isWholeDay(): bool;
 
-    /**
-     * @param DateTimeInterface $dateTime
-     *
-     * @return bool
-     */
     public function contains(DateTimeInterface $dateTime): bool;
 }

@@ -16,23 +16,11 @@ use Yakamara\DateTime\DateTimeInterface;
 
 interface HolidaysInterface
 {
-    /**
-     * @param DateTimeInterface $dateTime
-     *
-     * @return bool
-     */
     public function isHoliday(DateTimeInterface $dateTime): bool;
 
-    /**
-     * @param DateTimeInterface $dateTime
-     *
-     * @return bool
-     */
     public function isWorkday(DateTimeInterface $dateTime): bool;
 
     /**
-     * @param int|string $year
-     *
      * @return Date[]
      */
     public function getHolidays(int $year): array;

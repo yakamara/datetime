@@ -114,9 +114,9 @@ class Date extends AbstractDateTime
         return parent::modify($modify)->setTime(0, 0, 0);
     }
 
-    public function setTime($hour, $minute, $second = 0)
+    public function setTime($hour, $minute, $second = 0, $microseconds = 0)
     {
-        return parent::setTime(0, 0, 0);
+        return parent::setTime(0, 0, 0, 0);
     }
 
     public function setTimestamp($timestamp)

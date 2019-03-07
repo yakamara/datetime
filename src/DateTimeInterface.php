@@ -175,7 +175,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function setTime($hour, $minute, $second = 0);
+    public function setTime($hour, $minute, $second = 0, $microseconds = 0);
 
     /**
      * @param int $timestamp

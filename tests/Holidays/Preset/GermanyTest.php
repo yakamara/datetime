@@ -22,7 +22,7 @@ final class GermanyTest extends TestCase
     /**
      * @dataProvider provideIsHoliday
      */
-    public function testIsHoliday(bool $expected, DateTimeInterface $input)
+    public function testIsHoliday(bool $expected, DateTimeInterface $input): void
     {
         self::assertSame($expected, (new Germany())->isHoliday($input));
     }
@@ -40,7 +40,7 @@ final class GermanyTest extends TestCase
     /**
      * @dataProvider provideIsWorkday
      */
-    public function testIsWorkday(bool $expected, DateTimeInterface $input)
+    public function testIsWorkday(bool $expected, DateTimeInterface $input): void
     {
         self::assertSame($expected, (new Germany())->isWorkday($input));
     }
@@ -55,12 +55,12 @@ final class GermanyTest extends TestCase
         ];
     }
 
-    public function getWorkdays()
+    public function getWorkdays(): void
     {
         self::assertSame([1, 2, 3, 4, 5], (new Germany())->getWorkdays());
     }
 
-    public function testGetHolidays()
+    public function testGetHolidays(): void
     {
         $holidays = (new Germany())->getHolidays(2017);
 
@@ -79,7 +79,7 @@ final class GermanyTest extends TestCase
             [12, 26],
         ];
 
-        foreach ($dates as list($month, $day)) {
+        foreach ($dates as [$month, $day]) {
             self::assertContains(Date::create(2017, $month, $day), $holidays, '', false, false);
         }
     }
@@ -87,7 +87,7 @@ final class GermanyTest extends TestCase
     /**
      * @dataProvider provideGetEaster
      */
-    public function testGetEaster(Date $date)
+    public function testGetEaster(Date $date): void
     {
         self::assertEquals($date, (new Germany())->getEaster($date->getYear()));
     }

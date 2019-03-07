@@ -94,14 +94,14 @@ interface DateTimeInterface extends \DateTimeInterface
     public function addDays(int $days): self;
 
     /**
-     * @param HolidaysInterface|null $holidays
+     * @param null|HolidaysInterface $holidays
      *
      * @return bool
      */
     public function isWorkday(HolidaysInterface $holidays = null): bool;
 
     /**
-     * @param HolidaysInterface|null $holidays
+     * @param null|HolidaysInterface $holidays
      *
      * @return bool
      */
@@ -109,7 +109,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     /**
      * @param int                    $days
-     * @param HolidaysInterface|null $holidays
+     * @param null|HolidaysInterface $holidays
      *
      * @return static
      */
@@ -117,7 +117,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     /**
      * @param self                   $date
-     * @param HolidaysInterface|null $holidays
+     * @param null|HolidaysInterface $holidays
      *
      * @return int
      */

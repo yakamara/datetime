@@ -19,7 +19,7 @@ use Yakamara\DateTime\DateTimeInterface;
 
 final class AbstractDateTimeTest extends TestCase
 {
-    public function testCreateFromDateTime()
+    public function testCreateFromDateTime(): void
     {
         $input = new \DateTime();
         $dateTime = AbstractDateTime::createFromDateTime($input);
@@ -38,7 +38,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame($input, $dateTime);
     }
 
-    public function testCreateFromTimestamp()
+    public function testCreateFromTimestamp(): void
     {
         $input = time();
         $dateTime = AbstractDateTime::createFromTimestamp($input);
@@ -47,7 +47,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame($input, $dateTime->getTimestamp());
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $dateTime = AbstractDateTime::createFromFormat('d.m.Y His', '12.09.2016 151800');
 
@@ -55,7 +55,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame('2016-09-12 15:18:00', $dateTime->formatIso());
     }
 
-    public function testCreateFromUnknown()
+    public function testCreateFromUnknown(): void
     {
         $input = time();
         $dateTime = AbstractDateTime::createFromUnknown($input);
@@ -76,7 +76,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame($input, $dateTime->format('Y-m-d H:i:s'));
     }
 
-    public function testFormatLocalized()
+    public function testFormatLocalized(): void
     {
         $input = '2016-09-08 22:07:00';
         $dateTime = new DateTime($input);
@@ -84,35 +84,35 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame($input, $dateTime->formatLocalized('%Y-%m-%d %H:%M:%S'));
     }
 
-    public function testGetYear()
+    public function testGetYear(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
         self::assertSame(2016, $dateTime->getYear());
     }
 
-    public function testGetMonth()
+    public function testGetMonth(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
         self::assertSame(9, $dateTime->getMonth());
     }
 
-    public function testGetDay()
+    public function testGetDay(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
         self::assertSame(8, $dateTime->getDay());
     }
 
-    public function testGetWeekday()
+    public function testGetWeekday(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
         self::assertSame(4, $dateTime->getWeekday());
     }
 
-    public function testAddYears()
+    public function testAddYears(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
@@ -120,7 +120,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame('2013-09-08 22:07:00', $dateTime->addYears(-3)->formatIso());
     }
 
-    public function testAddMonths()
+    public function testAddMonths(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
@@ -128,7 +128,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame('2016-06-08 22:07:00', $dateTime->addMonths(-3)->formatIso());
     }
 
-    public function testAddWeeks()
+    public function testAddWeeks(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
@@ -136,7 +136,7 @@ final class AbstractDateTimeTest extends TestCase
         self::assertSame('2016-08-18 22:07:00', $dateTime->addWeeks(-3)->formatIso());
     }
 
-    public function testAddDays()
+    public function testAddDays(): void
     {
         $dateTime = new DateTime('2016-09-08 22:07:00');
 
@@ -147,7 +147,7 @@ final class AbstractDateTimeTest extends TestCase
     /**
      * @dataProvider provideWorkdayDifference
      */
-    public function testAddWorkdays(DateTimeInterface $input, DateTimeInterface $expected, int $days)
+    public function testAddWorkdays(DateTimeInterface $input, DateTimeInterface $expected, int $days): void
     {
         $this->assertEquals($expected, $input->addWorkdays($days));
     }
@@ -155,7 +155,7 @@ final class AbstractDateTimeTest extends TestCase
     /**
      * @dataProvider provideWorkdayDifference
      */
-    public function testDiffWorkdays(DateTimeInterface $input, DateTimeInterface $dateTime2, int $expected)
+    public function testDiffWorkdays(DateTimeInterface $input, DateTimeInterface $dateTime2, int $expected): void
     {
         $this->assertEquals($expected, $input->diffWorkdays($dateTime2));
     }

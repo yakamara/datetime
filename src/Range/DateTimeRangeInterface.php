@@ -32,7 +32,7 @@ interface DateTimeRangeInterface
     public function diff(): \DateInterval;
 
     /**
-     * @param HolidaysInterface|null $holidays
+     * @param null|HolidaysInterface $holidays
      *
      * @return int
      */

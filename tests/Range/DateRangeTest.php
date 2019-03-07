@@ -20,7 +20,7 @@ use Yakamara\DateTime\Range\DateTimeRange;
 
 final class DateRangeTest extends TestCase
 {
-    public function testToDateTimeRange()
+    public function testToDateTimeRange(): void
     {
         $dateRange = new DateRange(new Date('2016-09-08'), new Date('2016-09-11'));
         $dateTimeRange = $dateRange->toDateTimeRange();
@@ -30,7 +30,7 @@ final class DateRangeTest extends TestCase
         self::assertSame('2016-09-12 00:00:00', $dateTimeRange->getEnd()->formatIso());
     }
 
-    public function testToUtcDateTimeRange()
+    public function testToUtcDateTimeRange(): void
     {
         $dateRange = new DateRange(new Date('2016-09-08'), new Date('2016-09-11'));
         $dateTimeRange = $dateRange->toUtcDateTimeRange();
@@ -43,7 +43,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsSameYear
      */
-    public function testIsSameYear(bool $expected, string $start, string $end)
+    public function testIsSameYear(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -63,7 +63,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsSameMonth
      */
-    public function testIsSameMonth(bool $expected, string $start, string $end)
+    public function testIsSameMonth(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -84,7 +84,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsSameDay
      */
-    public function testIsSameDay(bool $expected, string $start, string $end)
+    public function testIsSameDay(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -104,7 +104,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsWholeYear
      */
-    public function testIsWholeYear(bool $expected, string $start, string $end)
+    public function testIsWholeYear(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -124,7 +124,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsWholeMonth
      */
-    public function testIsWholeMonth(bool $expected, string $start, string $end)
+    public function testIsWholeMonth(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -145,7 +145,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideIsWholeDay
      */
-    public function testIsWholeDay(bool $expected, string $start, string $end)
+    public function testIsWholeDay(bool $expected, string $start, string $end): void
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
@@ -165,7 +165,7 @@ final class DateRangeTest extends TestCase
     /**
      * @dataProvider provideContains
      */
-    public function testContains(bool $expected, DateTimeInterface $contains)
+    public function testContains(bool $expected, DateTimeInterface $contains): void
     {
         $dateRange = new DateRange(new Date('2016-08-03'), new Date('2016-09-11'));
 
@@ -189,13 +189,13 @@ final class DateRangeTest extends TestCase
         ];
     }
 
-    public function testCount()
+    public function testCount(): void
     {
         self::assertCount(1, new DateRange(Date::today(), Date::today()));
         self::assertCount(3, new DateRange(Date::yesterday(), Date::tomorrow()));
     }
 
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $dateRange = new DateRange(Date::yesterday(), Date::tomorrow());
 

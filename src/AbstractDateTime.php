@@ -18,13 +18,13 @@ use Yakamara\DateTime\Holidays\HolidaysInterface;
  */
 abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeInterface
 {
-    const SUNDAY = 0;
-    const MONDAY = 1;
-    const TUESDAY = 2;
-    const WEDNESDAY = 3;
-    const THURSDAY = 4;
-    const FRIDAY = 5;
-    const SATURDAY = 6;
+    public const SUNDAY = 0;
+    public const MONDAY = 1;
+    public const TUESDAY = 2;
+    public const WEDNESDAY = 3;
+    public const THURSDAY = 4;
+    public const FRIDAY = 5;
+    public const SATURDAY = 6;
 
     private static $defaultHolidays;
 
@@ -82,7 +82,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
      */
     public static function createFromUnknown($dateTime): self
     {
-        if (is_int($dateTime)) {
+        if (\is_int($dateTime)) {
             return static::createFromTimestamp($dateTime);
         }
 
@@ -208,7 +208,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return $i;
     }
 
-    public static function setDefaultHolidays(HolidaysInterface $holidays)
+    public static function setDefaultHolidays(HolidaysInterface $holidays): void
     {
         self::$defaultHolidays = $holidays;
     }
@@ -236,7 +236,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
 
     private static function getClass(): string
     {
-        $class = get_called_class();
+        $class = \get_called_class();
 
         return __CLASS__ === $class ? DateTime::class : $class;
     }

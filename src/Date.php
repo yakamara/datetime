@@ -131,7 +131,7 @@ class Date extends AbstractDateTime
 
     private static function stripTime(string $dateTime): string
     {
-        if (in_array($dateTime, ['today', 'now', ''], true)) {
+        if (\in_array($dateTime, ['today', 'now', ''], true)) {
             return 'today';
         }
 

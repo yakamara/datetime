@@ -21,12 +21,12 @@ abstract class AbstractHolidays implements HolidaysInterface
 
     public function isHoliday(DateTimeInterface $dateTime): bool
     {
-        return in_array(Date::createFromDateTime($dateTime), $this->getHolidays($dateTime->getYear()));
+        return \in_array(Date::createFromDateTime($dateTime), $this->getHolidays($dateTime->getYear()));
     }
 
     public function isWorkday(DateTimeInterface $dateTime): bool
     {
-        if (!in_array($dateTime->getWeekday(), $this->getWorkdays())) {
+        if (!\in_array($dateTime->getWeekday(), $this->getWorkdays())) {
             return false;
         }
 
@@ -41,7 +41,7 @@ abstract class AbstractHolidays implements HolidaysInterface
 
         $this->holidays[$year] = [];
 
-        foreach ($this->getFixedHolidays() as list($month, $day)) {
+        foreach ($this->getFixedHolidays() as [$month, $day]) {
             $this->holidays[$year][] = Date::create($year, $month, $day);
         }
 
@@ -68,9 +68,9 @@ abstract class AbstractHolidays implements HolidaysInterface
 
         $temp = intdiv($firstDigits - 15, 2) + 202 - 11 * $remain19;
 
-        if (in_array($firstDigits, [21, 24, 25, 27, 28, 29, 30, 31, 32, 34, 35, 38], true)) {
-            $temp -= 1;
-        } elseif (in_array($firstDigits, [33, 36, 37, 39, 40], true)) {
+        if (\in_array($firstDigits, [21, 24, 25, 27, 28, 29, 30, 31, 32, 34, 35, 38], true)) {
+            --$temp;
+        } elseif (\in_array($firstDigits, [33, 36, 37, 39, 40], true)) {
             $temp -= 2;
         }
 

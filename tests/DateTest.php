@@ -18,7 +18,7 @@ use Yakamara\DateTime\Range\DateTimeRange;
 
 final class DateTest extends TestCase
 {
-    public function testCreateFromDateTime()
+    public function testCreateFromDateTime(): void
     {
         $input = new \DateTime();
         $date = Date::createFromDateTime($input);
@@ -38,7 +38,7 @@ final class DateTest extends TestCase
         self::assertSame($input, $date);
     }
 
-    public function testCreateFromTimestamp()
+    public function testCreateFromTimestamp(): void
     {
         $input = time();
         $date = Date::createFromTimestamp($input);
@@ -47,7 +47,7 @@ final class DateTest extends TestCase
         self::assertSame(date('Y-m-d', $input), $date->formatIso());
     }
 
-    public function testCreateFromFormat()
+    public function testCreateFromFormat(): void
     {
         $date = Date::createFromFormat('d.m.Y His', '12.09.2016 151800');
 
@@ -56,7 +56,7 @@ final class DateTest extends TestCase
         self::assertSame('00:00:00', $date->format('H:i:s'));
     }
 
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $date = new Date();
 
@@ -79,14 +79,14 @@ final class DateTest extends TestCase
         self::assertSame('00:00:00', $date->format('H:i:s'));
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $date = Date::create(2016, 9, 8);
 
         self::assertSame('2016-09-08', $date->formatIso());
     }
 
-    public function testToday()
+    public function testToday(): void
     {
         $today = Date::today();
 
@@ -94,7 +94,7 @@ final class DateTest extends TestCase
         self::assertEquals(strtotime('today'), $today->getTimestamp());
     }
 
-    public function testYesterday()
+    public function testYesterday(): void
     {
         $yesterday = Date::yesterday();
 
@@ -102,7 +102,7 @@ final class DateTest extends TestCase
         self::assertEquals(strtotime('yesterday'), $yesterday->getTimestamp());
     }
 
-    public function testTomorrow()
+    public function testTomorrow(): void
     {
         $tomorrow = Date::tomorrow();
 
@@ -110,14 +110,14 @@ final class DateTest extends TestCase
         self::assertEquals(strtotime('tomorrow'), $tomorrow->getTimestamp());
     }
 
-    public function testFormatIso()
+    public function testFormatIso(): void
     {
         $input = '2016-09-08';
 
         self::assertSame($input, (new Date($input))->formatIso());
     }
 
-    public function testFormatIntl()
+    public function testFormatIntl(): void
     {
         $date = new Date('2016-09-08');
 
@@ -125,7 +125,7 @@ final class DateTest extends TestCase
         self::assertSame('08.09.16', $date->formatIntl(\IntlDateFormatter::SHORT));
     }
 
-    public function testToMutable()
+    public function testToMutable(): void
     {
         $date = new Date('2016-09-08');
         $mutable = $date->toMutable();
@@ -134,7 +134,7 @@ final class DateTest extends TestCase
         self::assertSame($date->getTimestamp(), $mutable->getTimestamp());
     }
 
-    public function testToDateTime()
+    public function testToDateTime(): void
     {
         $date = new Date();
         $dateTime = $date->toDateTime();
@@ -144,7 +144,7 @@ final class DateTest extends TestCase
         self::assertSame('00:00:00', $dateTime->formatIsoTime());
     }
 
-    public function testToRange()
+    public function testToRange(): void
     {
         $date = new Date('2016-09-11');
         $range = $date->toRange();
@@ -154,7 +154,7 @@ final class DateTest extends TestCase
         self::assertSame('2016-09-12 00:00:00', $range->getEnd()->formatIso());
     }
 
-    public function testToUtcRange()
+    public function testToUtcRange(): void
     {
         $date = new Date('2016-09-11');
         $range = $date->toUtcRange();
@@ -167,7 +167,7 @@ final class DateTest extends TestCase
     /**
      * @dataProvider provideIsStartOfYear
      */
-    public function testIsStartOfYear(bool $expected, string $date)
+    public function testIsStartOfYear(bool $expected, string $date): void
     {
         self::assertSame($expected, (new Date($date))->isStartOfYear());
     }
@@ -186,7 +186,7 @@ final class DateTest extends TestCase
     /**
      * @dataProvider provideIsEndOfYear
      */
-    public function testIsEndOfYear(bool $expected, string $date)
+    public function testIsEndOfYear(bool $expected, string $date): void
     {
         self::assertSame($expected, (new Date($date))->isEndOfYear());
     }
@@ -204,7 +204,7 @@ final class DateTest extends TestCase
     /**
      * @dataProvider provideIsStartOfMonth
      */
-    public function testIsStartOfMonth(bool $expected, string $date)
+    public function testIsStartOfMonth(bool $expected, string $date): void
     {
         self::assertSame($expected, (new Date($date))->isStartOfMonth());
     }
@@ -222,7 +222,7 @@ final class DateTest extends TestCase
     /**
      * @dataProvider provideIsEndOfMonth
      */
-    public function testIsEndOfMonth(bool $expected, string $date)
+    public function testIsEndOfMonth(bool $expected, string $date): void
     {
         self::assertSame($expected, (new Date($date))->isEndOfMonth());
     }

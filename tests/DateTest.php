@@ -11,30 +11,31 @@
 
 namespace Yakamara\DateTime\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 use Yakamara\DateTime\Range\DateTimeRange;
 
-final class DateTest extends \PHPUnit_Framework_TestCase
+final class DateTest extends TestCase
 {
     public function testCreateFromDateTime()
     {
         $input = new \DateTime();
         $date = Date::createFromDateTime($input);
 
-        $this->assertInstanceOf(Date::class, $date);
-        $this->assertEquals($input->format('Y-m-d'), $date->formatIso());
+        self::assertInstanceOf(Date::class, $date);
+        self::assertEquals($input->format('Y-m-d'), $date->formatIso());
 
         $input = new DateTime();
         $date = Date::createFromDateTime($input);
 
-        $this->assertInstanceOf(Date::class, $date);
-        $this->assertSame($input->formatIsoDate(), $date->formatIso());
+        self::assertInstanceOf(Date::class, $date);
+        self::assertSame($input->formatIsoDate(), $date->formatIso());
 
         $input = new Date();
         $date = Date::createFromDateTime($input);
 
-        $this->assertSame($input, $date);
+        self::assertSame($input, $date);
     }
 
     public function testCreateFromTimestamp()
@@ -42,86 +43,86 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $input = time();
         $date = Date::createFromTimestamp($input);
 
-        $this->assertInstanceOf(Date::class, $date);
-        $this->assertSame(date('Y-m-d', $input), $date->formatIso());
+        self::assertInstanceOf(Date::class, $date);
+        self::assertSame(date('Y-m-d', $input), $date->formatIso());
     }
 
     public function testCreateFromFormat()
     {
         $date = Date::createFromFormat('d.m.Y His', '12.09.2016 151800');
 
-        $this->assertInstanceOf(Date::class, $date);
-        $this->assertSame('2016-09-12', $date->formatIso());
-        $this->assertSame('00:00:00', $date->format('H:i:s'));
+        self::assertInstanceOf(Date::class, $date);
+        self::assertSame('2016-09-12', $date->formatIso());
+        self::assertSame('00:00:00', $date->format('H:i:s'));
     }
 
     public function testConstruct()
     {
         $date = new Date();
 
-        $this->assertSame(date('Y-m-d'), $date->formatIso());
-        $this->assertSame('00:00:00', $date->format('H:i:s'));
+        self::assertSame(date('Y-m-d'), $date->formatIso());
+        self::assertSame('00:00:00', $date->format('H:i:s'));
 
         $date = new Date('2016-09-08');
 
-        $this->assertSame('2016-09-08', $date->formatIso());
-        $this->assertSame('00:00:00', $date->format('H:i:s'));
+        self::assertSame('2016-09-08', $date->formatIso());
+        self::assertSame('00:00:00', $date->format('H:i:s'));
 
         $date = new Date('2016-09-08 22:07:02');
 
-        $this->assertSame('2016-09-08', $date->formatIso());
-        $this->assertSame('00:00:00', $date->format('H:i:s'));
+        self::assertSame('2016-09-08', $date->formatIso());
+        self::assertSame('00:00:00', $date->format('H:i:s'));
 
         $date = new Date('@'.strtotime('2016-09-08 22:07:02'));
 
-        $this->assertSame('2016-09-08', $date->formatIso());
-        $this->assertSame('00:00:00', $date->format('H:i:s'));
+        self::assertSame('2016-09-08', $date->formatIso());
+        self::assertSame('00:00:00', $date->format('H:i:s'));
     }
 
     public function testCreate()
     {
         $date = Date::create(2016, 9, 8);
 
-        $this->assertSame('2016-09-08', $date->formatIso());
+        self::assertSame('2016-09-08', $date->formatIso());
     }
 
     public function testToday()
     {
         $today = Date::today();
 
-        $this->assertSame(Date::today(), $today);
-        $this->assertEquals(strtotime('today'), $today->getTimestamp());
+        self::assertSame(Date::today(), $today);
+        self::assertEquals(strtotime('today'), $today->getTimestamp());
     }
 
     public function testYesterday()
     {
         $yesterday = Date::yesterday();
 
-        $this->assertSame(Date::yesterday(), $yesterday);
-        $this->assertEquals(strtotime('yesterday'), $yesterday->getTimestamp());
+        self::assertSame(Date::yesterday(), $yesterday);
+        self::assertEquals(strtotime('yesterday'), $yesterday->getTimestamp());
     }
 
     public function testTomorrow()
     {
         $tomorrow = Date::tomorrow();
 
-        $this->assertSame(Date::tomorrow(), $tomorrow);
-        $this->assertEquals(strtotime('tomorrow'), $tomorrow->getTimestamp());
+        self::assertSame(Date::tomorrow(), $tomorrow);
+        self::assertEquals(strtotime('tomorrow'), $tomorrow->getTimestamp());
     }
 
     public function testFormatIso()
     {
         $input = '2016-09-08';
 
-        $this->assertSame($input, (new Date($input))->formatIso());
+        self::assertSame($input, (new Date($input))->formatIso());
     }
 
     public function testFormatIntl()
     {
         $date = new Date('2016-09-08');
 
-        $this->assertSame('8. September 2016', $date->formatIntl());
-        $this->assertSame('08.09.16', $date->formatIntl(\IntlDateFormatter::SHORT));
+        self::assertSame('8. September 2016', $date->formatIntl());
+        self::assertSame('08.09.16', $date->formatIntl(\IntlDateFormatter::SHORT));
     }
 
     public function testToMutable()
@@ -129,8 +130,8 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $date = new Date('2016-09-08');
         $mutable = $date->toMutable();
 
-        $this->assertInstanceOf(\DateTime::class, $mutable);
-        $this->assertEquals($date, $mutable);
+        self::assertInstanceOf(\DateTime::class, $mutable);
+        self::assertSame($date->getTimestamp(), $mutable->getTimestamp());
     }
 
     public function testToDateTime()
@@ -138,9 +139,9 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $date = new Date();
         $dateTime = $date->toDateTime();
 
-        $this->assertInstanceOf(DateTime::class, $dateTime);
-        $this->assertSame($date->formatIso(), $dateTime->formatIsoDate());
-        $this->assertSame('00:00:00', $dateTime->formatIsoTime());
+        self::assertInstanceOf(DateTime::class, $dateTime);
+        self::assertSame($date->formatIso(), $dateTime->formatIsoDate());
+        self::assertSame('00:00:00', $dateTime->formatIsoTime());
     }
 
     public function testToRange()
@@ -148,9 +149,9 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $date = new Date('2016-09-11');
         $range = $date->toRange();
 
-        $this->assertInstanceOf(DateTimeRange::class, $range);
-        $this->assertSame('2016-09-11 00:00:00', $range->getStart()->formatIso());
-        $this->assertSame('2016-09-12 00:00:00', $range->getEnd()->formatIso());
+        self::assertInstanceOf(DateTimeRange::class, $range);
+        self::assertSame('2016-09-11 00:00:00', $range->getStart()->formatIso());
+        self::assertSame('2016-09-12 00:00:00', $range->getEnd()->formatIso());
     }
 
     public function testToUtcRange()
@@ -158,9 +159,9 @@ final class DateTest extends \PHPUnit_Framework_TestCase
         $date = new Date('2016-09-11');
         $range = $date->toUtcRange();
 
-        $this->assertInstanceOf(DateTimeRange::class, $range);
-        $this->assertSame('2016-09-10 22:00:00', $range->getStart()->formatIso());
-        $this->assertSame('2016-09-11 22:00:00', $range->getEnd()->formatIso());
+        self::assertInstanceOf(DateTimeRange::class, $range);
+        self::assertSame('2016-09-10 22:00:00', $range->getStart()->formatIso());
+        self::assertSame('2016-09-11 22:00:00', $range->getEnd()->formatIso());
     }
 
     /**
@@ -168,7 +169,7 @@ final class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsStartOfYear(bool $expected, string $date)
     {
-        $this->assertSame($expected, (new Date($date))->isStartOfYear());
+        self::assertSame($expected, (new Date($date))->isStartOfYear());
     }
 
     public function provideIsStartOfYear(): array
@@ -187,7 +188,7 @@ final class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEndOfYear(bool $expected, string $date)
     {
-        $this->assertSame($expected, (new Date($date))->isEndOfYear());
+        self::assertSame($expected, (new Date($date))->isEndOfYear());
     }
 
     public function provideIsEndOfYear(): array
@@ -205,7 +206,7 @@ final class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsStartOfMonth(bool $expected, string $date)
     {
-        $this->assertSame($expected, (new Date($date))->isStartOfMonth());
+        self::assertSame($expected, (new Date($date))->isStartOfMonth());
     }
 
     public function provideIsStartOfMonth(): array
@@ -223,7 +224,7 @@ final class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEndOfMonth(bool $expected, string $date)
     {
-        $this->assertSame($expected, (new Date($date))->isEndOfMonth());
+        self::assertSame($expected, (new Date($date))->isEndOfMonth());
     }
 
     public function provideIsEndOfMonth(): array

@@ -17,5 +17,5 @@ install:
     - travis_retry composer update
 
 script:
-    - phpunit --verbose
+    - vendor/bin/phpunit --verbose
     - $HOME/.composer/vendor/bin/php-cs-fixer fix --dry-run --diff --verbose --using-cache=no

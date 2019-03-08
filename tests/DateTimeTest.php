@@ -11,30 +11,31 @@
 
 namespace Yakamara\DateTime\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 
-final class DateTimeTest extends \PHPUnit_Framework_TestCase
+final class DateTimeTest extends TestCase
 {
     public function testCreateFromDateTime()
     {
         $input = new \DateTime();
         $dateTime = DateTime::createFromDateTime($input);
 
-        $this->assertInstanceOf(DateTime::class, $dateTime);
-        $this->assertEquals($input, $dateTime);
+        self::assertInstanceOf(DateTime::class, $dateTime);
+        self::assertEquals($input, $dateTime);
 
         $input = new DateTime();
         $dateTime = DateTime::createFromDateTime($input);
 
-        $this->assertSame($input, $dateTime);
+        self::assertSame($input, $dateTime);
 
         $input = new Date();
         $dateTime = DateTime::createFromDateTime($input);
 
-        $this->assertInstanceOf(DateTime::class, $dateTime);
-        $this->assertSame($input->formatIso(), $dateTime->formatIsoDate());
-        $this->assertSame('00:00:00', $dateTime->formatIsoTime());
+        self::assertInstanceOf(DateTime::class, $dateTime);
+        self::assertSame($input->formatIso(), $dateTime->formatIsoDate());
+        self::assertSame('00:00:00', $dateTime->formatIsoTime());
     }
 
     public function testCreateFromTimestamp()
@@ -42,43 +43,43 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $input = time();
         $dateTime = DateTime::createFromTimestamp($input);
 
-        $this->assertInstanceOf(DateTime::class, $dateTime);
-        $this->assertSame($input, $dateTime->getTimestamp());
+        self::assertInstanceOf(DateTime::class, $dateTime);
+        self::assertSame($input, $dateTime->getTimestamp());
     }
 
     public function testCreateFromFormat()
     {
         $dateTime = DateTime::createFromFormat('d.m.Y His', '12.09.2016 151800');
 
-        $this->assertInstanceOf(DateTime::class, $dateTime);
-        $this->assertSame('2016-09-12 15:18:00', $dateTime->formatIso());
+        self::assertInstanceOf(DateTime::class, $dateTime);
+        self::assertSame('2016-09-12 15:18:00', $dateTime->formatIso());
     }
 
     public function testCreate()
     {
         $dateTime = DateTime::create(2016, 9, 8);
 
-        $this->assertSame('2016-09-08 00:00:00', $dateTime->formatIso());
+        self::assertSame('2016-09-08 00:00:00', $dateTime->formatIso());
 
         $dateTime = DateTime::create(2016, 9, 8, 22, 7, 2);
 
-        $this->assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
+        self::assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
     }
 
     public function testCreateUtc()
     {
         $dateTime = DateTime::createUtc('2016-09-08 22:07:02');
 
-        $this->assertEquals(DateTime::getUtcTimezone(), $dateTime->getTimezone());
-        $this->assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
+        self::assertEquals(DateTime::getUtcTimezone(), $dateTime->getTimezone());
+        self::assertSame('2016-09-08 22:07:02', $dateTime->formatIso());
     }
 
     public function testCreateFromUtc()
     {
         $dateTime = DateTime::createFromUtc('2016-09-08 22:07:02');
 
-        $this->assertEquals(DateTime::getDefaultTimezone(), $dateTime->getTimezone());
-        $this->assertSame('2016-09-09 00:07:02', $dateTime->formatIso());
+        self::assertEquals(DateTime::getDefaultTimezone(), $dateTime->getTimezone());
+        self::assertSame('2016-09-09 00:07:02', $dateTime->formatIso());
     }
 
     public function testNow()
@@ -87,25 +88,25 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $now = DateTime::now();
         $postNow = time();
 
-        $this->assertGreaterThanOrEqual($preNow, $now->getTimestamp());
-        $this->assertLessThanOrEqual($postNow, $now->getTimestamp());
+        self::assertGreaterThanOrEqual($preNow, $now->getTimestamp());
+        self::assertLessThanOrEqual($postNow, $now->getTimestamp());
     }
 
     public function testFormatIso()
     {
         $input = '2016-09-08 22:07:02';
 
-        $this->assertSame($input, (new DateTime($input))->formatIso());
+        self::assertSame($input, (new DateTime($input))->formatIso());
     }
 
     public function testFormatIsoDate()
     {
-        $this->assertSame('2016-09-08', (new DateTime('2016-09-08 22:07:02'))->formatIsoDate());
+        self::assertSame('2016-09-08', (new DateTime('2016-09-08 22:07:02'))->formatIsoDate());
     }
 
     public function testFormatIsoTime()
     {
-        $this->assertSame('22:07:02', (new DateTime('2016-09-08 22:07:02'))->formatIsoTime());
+        self::assertSame('22:07:02', (new DateTime('2016-09-08 22:07:02'))->formatIsoTime());
     }
 
     public function testFormatIntl()
@@ -113,32 +114,32 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
         $string = $dateTime->formatIntl();
-        $this->assertStringStartsWith('8. September 2016', $string);
-        $this->assertStringEndsWith('22:07:02 MESZ', $string);
+        self::assertStringStartsWith('8. September 2016', $string);
+        self::assertStringEndsWith('22:07:02 MESZ', $string);
 
         $string = $dateTime->formatIntl(\IntlDateFormatter::MEDIUM, \IntlDateFormatter::SHORT);
-        $this->assertStringStartsWith('08.09.2016', $string);
-        $this->assertStringEndsWith('22:07', $string);
+        self::assertStringStartsWith('08.09.2016', $string);
+        self::assertStringEndsWith('22:07', $string);
 
         $string = $dateTime->formatIntl(\IntlDateFormatter::SHORT);
-        $this->assertStringStartsWith('08.09.16', $string);
-        $this->assertStringEndsWith('22:07', $string);
+        self::assertStringStartsWith('08.09.16', $string);
+        self::assertStringEndsWith('22:07', $string);
     }
 
     public function testFormatIntlDate()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('8. September 2016', $dateTime->formatIntlDate());
-        $this->assertSame('08.09.16', $dateTime->formatIntlDate(\IntlDateFormatter::SHORT));
+        self::assertSame('8. September 2016', $dateTime->formatIntlDate());
+        self::assertSame('08.09.16', $dateTime->formatIntlDate(\IntlDateFormatter::SHORT));
     }
 
     public function testFormatIntlTime()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('22:07:02 MESZ', $dateTime->formatIntlTime());
-        $this->assertSame('22:07', $dateTime->formatIntlTime(\IntlDateFormatter::SHORT));
+        self::assertSame('22:07:02 MESZ', $dateTime->formatIntlTime());
+        self::assertSame('22:07', $dateTime->formatIntlTime(\IntlDateFormatter::SHORT));
     }
 
     public function testToMutable()
@@ -146,8 +147,8 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $dateTime = new DateTime('2016-09-08 22:07:02');
         $mutable = $dateTime->toMutable();
 
-        $this->assertInstanceOf(\DateTime::class, $mutable);
-        $this->assertEquals($dateTime, $mutable);
+        self::assertInstanceOf(\DateTime::class, $mutable);
+        self::assertEquals($dateTime, $mutable);
     }
 
     public function testToDate()
@@ -155,36 +156,36 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
         $dateTime = new DateTime();
         $date = $dateTime->toDate();
 
-        $this->assertInstanceOf(Date::class, $date);
-        $this->assertSame($dateTime->formatIsoDate(), $date->formatIso());
+        self::assertInstanceOf(Date::class, $date);
+        self::assertSame($dateTime->formatIsoDate(), $date->formatIso());
     }
 
     public function testToUtc()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('2016-09-08 20:07:02', $dateTime->toUtc()->formatIso());
+        self::assertSame('2016-09-08 20:07:02', $dateTime->toUtc()->formatIso());
     }
 
     public function testGetHour()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame(22, $dateTime->getHour());
+        self::assertSame(22, $dateTime->getHour());
     }
 
     public function testGetMinute()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame(7, $dateTime->getMinute());
+        self::assertSame(7, $dateTime->getMinute());
     }
 
     public function testGetSecond()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame(2, $dateTime->getSecond());
+        self::assertSame(2, $dateTime->getSecond());
     }
 
     /**
@@ -192,7 +193,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsStartOfYear(bool $expected, string $dateTime)
     {
-        $this->assertSame($expected, (new DateTime($dateTime))->isStartOfYear());
+        self::assertSame($expected, (new DateTime($dateTime))->isStartOfYear());
     }
 
     public function provideIsStartOfYear(): array
@@ -213,7 +214,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsStartOfMonth(bool $expected, string $dateTime)
     {
-        $this->assertSame($expected, (new DateTime($dateTime))->isStartOfMonth());
+        self::assertSame($expected, (new DateTime($dateTime))->isStartOfMonth());
     }
 
     public function provideIsStartOfMonth(): array
@@ -233,7 +234,7 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsMidnight(bool $expected, string $dateTime)
     {
-        $this->assertSame($expected, (new DateTime($dateTime))->isMidnight());
+        self::assertSame($expected, (new DateTime($dateTime))->isMidnight());
     }
 
     public function provideIsMidnight(): array
@@ -249,23 +250,23 @@ final class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('2016-09-09 00:07:02', $dateTime->addHours(2)->formatIso());
-        $this->assertSame('2016-09-08 19:07:02', $dateTime->addHours(-3)->formatIso());
+        self::assertSame('2016-09-09 00:07:02', $dateTime->addHours(2)->formatIso());
+        self::assertSame('2016-09-08 19:07:02', $dateTime->addHours(-3)->formatIso());
     }
 
     public function testAddMinutes()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('2016-09-08 22:09:02', $dateTime->addMinutes(2)->formatIso());
-        $this->assertSame('2016-09-08 22:04:02', $dateTime->addMinutes(-3)->formatIso());
+        self::assertSame('2016-09-08 22:09:02', $dateTime->addMinutes(2)->formatIso());
+        self::assertSame('2016-09-08 22:04:02', $dateTime->addMinutes(-3)->formatIso());
     }
 
     public function testAddSeconds()
     {
         $dateTime = new DateTime('2016-09-08 22:07:02');
 
-        $this->assertSame('2016-09-08 22:07:04', $dateTime->addSeconds(2)->formatIso());
-        $this->assertSame('2016-09-08 22:06:59', $dateTime->addSeconds(-3)->formatIso());
+        self::assertSame('2016-09-08 22:07:04', $dateTime->addSeconds(2)->formatIso());
+        self::assertSame('2016-09-08 22:06:59', $dateTime->addSeconds(-3)->formatIso());
     }
 }

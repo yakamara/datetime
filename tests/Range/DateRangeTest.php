@@ -11,22 +11,23 @@
 
 namespace Yakamara\DateTime\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 use Yakamara\DateTime\DateTimeInterface;
 use Yakamara\DateTime\Range\DateRange;
 use Yakamara\DateTime\Range\DateTimeRange;
 
-final class DateRangeTest extends \PHPUnit_Framework_TestCase
+final class DateRangeTest extends TestCase
 {
     public function testToDateTimeRange()
     {
         $dateRange = new DateRange(new Date('2016-09-08'), new Date('2016-09-11'));
         $dateTimeRange = $dateRange->toDateTimeRange();
 
-        $this->assertInstanceOf(DateTimeRange::class, $dateTimeRange);
-        $this->assertSame('2016-09-08 00:00:00', $dateTimeRange->getStart()->formatIso());
-        $this->assertSame('2016-09-12 00:00:00', $dateTimeRange->getEnd()->formatIso());
+        self::assertInstanceOf(DateTimeRange::class, $dateTimeRange);
+        self::assertSame('2016-09-08 00:00:00', $dateTimeRange->getStart()->formatIso());
+        self::assertSame('2016-09-12 00:00:00', $dateTimeRange->getEnd()->formatIso());
     }
 
     public function testToUtcDateTimeRange()
@@ -34,9 +35,9 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
         $dateRange = new DateRange(new Date('2016-09-08'), new Date('2016-09-11'));
         $dateTimeRange = $dateRange->toUtcDateTimeRange();
 
-        $this->assertInstanceOf(DateTimeRange::class, $dateTimeRange);
-        $this->assertSame('2016-09-07 22:00:00', $dateTimeRange->getStart()->formatIso());
-        $this->assertSame('2016-09-11 22:00:00', $dateTimeRange->getEnd()->formatIso());
+        self::assertInstanceOf(DateTimeRange::class, $dateTimeRange);
+        self::assertSame('2016-09-07 22:00:00', $dateTimeRange->getStart()->formatIso());
+        self::assertSame('2016-09-11 22:00:00', $dateTimeRange->getEnd()->formatIso());
     }
 
     /**
@@ -46,7 +47,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isSameYear());
+        self::assertSame($expected, $dateRange->isSameYear());
     }
 
     public function provideIsSameYear()
@@ -66,7 +67,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isSameMonth());
+        self::assertSame($expected, $dateRange->isSameMonth());
     }
 
     public function provideIsSameMonth()
@@ -87,7 +88,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isSameDay());
+        self::assertSame($expected, $dateRange->isSameDay());
     }
 
     public function provideIsSameDay()
@@ -107,7 +108,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isWholeYear());
+        self::assertSame($expected, $dateRange->isWholeYear());
     }
 
     public function provideIsWholeYear()
@@ -127,7 +128,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isWholeMonth());
+        self::assertSame($expected, $dateRange->isWholeMonth());
     }
 
     public function provideIsWholeMonth()
@@ -148,7 +149,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date($start), new Date($end));
 
-        $this->assertSame($expected, $dateRange->isWholeDay());
+        self::assertSame($expected, $dateRange->isWholeDay());
     }
 
     public function provideIsWholeDay()
@@ -168,7 +169,7 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateRange = new DateRange(new Date('2016-08-03'), new Date('2016-09-11'));
 
-        $this->assertSame($expected, $dateRange->contains($contains));
+        self::assertSame($expected, $dateRange->contains($contains));
     }
 
     public function provideContains()
@@ -190,14 +191,14 @@ final class DateRangeTest extends \PHPUnit_Framework_TestCase
 
     public function testCount()
     {
-        $this->assertCount(1, new DateRange(Date::today(), Date::today()));
-        $this->assertCount(3, new DateRange(Date::yesterday(), Date::tomorrow()));
+        self::assertCount(1, new DateRange(Date::today(), Date::today()));
+        self::assertCount(3, new DateRange(Date::yesterday(), Date::tomorrow()));
     }
 
     public function testGetIterator()
     {
         $dateRange = new DateRange(Date::yesterday(), Date::tomorrow());
 
-        $this->assertEquals([Date::yesterday(), Date::today(), Date::tomorrow()], iterator_to_array($dateRange));
+        self::assertEquals([Date::yesterday(), Date::today(), Date::tomorrow()], iterator_to_array($dateRange));
     }
 }

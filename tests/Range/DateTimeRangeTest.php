@@ -11,22 +11,23 @@
 
 namespace Yakamara\DateTime\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 use Yakamara\DateTime\DateTimeInterface;
 use Yakamara\DateTime\Range\DateRange;
 use Yakamara\DateTime\Range\DateTimeRange;
 
-final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
+final class DateTimeRangeTest extends TestCase
 {
     public function testToUtc()
     {
         $dateTimeRange = new DateTimeRange(new DateTime('2016-09-08 13:15:00'), new DateTime('2016-09-11 04:00:12'));
         $dateTimeRange = $dateTimeRange->toUtc();
 
-        $this->assertInstanceOf(DateTimeRange::class, $dateTimeRange);
-        $this->assertSame('2016-09-08 11:15:00', $dateTimeRange->getStart()->formatIso());
-        $this->assertSame('2016-09-11 02:00:12', $dateTimeRange->getEnd()->formatIso());
+        self::assertInstanceOf(DateTimeRange::class, $dateTimeRange);
+        self::assertSame('2016-09-08 11:15:00', $dateTimeRange->getStart()->formatIso());
+        self::assertSame('2016-09-11 02:00:12', $dateTimeRange->getEnd()->formatIso());
     }
 
     public function testToDateRange()
@@ -34,14 +35,14 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
         $dateTimeRange = new DateTimeRange(new DateTime('2016-09-08 13:15:00'), new DateTime('2016-09-11 04:00:12'));
         $dateRange = $dateTimeRange->toDateRange();
 
-        $this->assertInstanceOf(DateRange::class, $dateRange);
-        $this->assertSame('2016-09-08 00:00:00', $dateRange->getStart()->format('Y-m-d H:i:s'));
-        $this->assertSame('2016-09-11 00:00:00', $dateRange->getEnd()->format('Y-m-d H:i:s'));
+        self::assertInstanceOf(DateRange::class, $dateRange);
+        self::assertSame('2016-09-08 00:00:00', $dateRange->getStart()->format('Y-m-d H:i:s'));
+        self::assertSame('2016-09-11 00:00:00', $dateRange->getEnd()->format('Y-m-d H:i:s'));
 
         $dateTimeRange = new DateTimeRange(new DateTime('2016-09-08 13:15:00'), new DateTime('2016-09-11 00:00:00'));
         $dateRange = $dateTimeRange->toDateRange();
 
-        $this->assertSame('2016-09-10 00:00:00', $dateRange->getEnd()->format('Y-m-d H:i:s'));
+        self::assertSame('2016-09-10 00:00:00', $dateRange->getEnd()->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -51,7 +52,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isSameYear());
+        self::assertSame($expected, $dateTimeRange->isSameYear());
     }
 
     public function provideIsSameYear()
@@ -71,7 +72,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isSameMonth());
+        self::assertSame($expected, $dateTimeRange->isSameMonth());
     }
 
     public function provideIsSameMonth()
@@ -92,7 +93,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isSameDay());
+        self::assertSame($expected, $dateTimeRange->isSameDay());
     }
 
     public function provideIsSameDay()
@@ -113,7 +114,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isWholeYear());
+        self::assertSame($expected, $dateTimeRange->isWholeYear());
     }
 
     public function provideIsWholeYear()
@@ -133,7 +134,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isWholeMonth());
+        self::assertSame($expected, $dateTimeRange->isWholeMonth());
     }
 
     public function provideIsWholeMonth()
@@ -153,7 +154,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime($start), new DateTime($end));
 
-        $this->assertSame($expected, $dateTimeRange->isWholeDay());
+        self::assertSame($expected, $dateTimeRange->isWholeDay());
     }
 
     public function provideIsWholeDay()
@@ -174,7 +175,7 @@ final class DateTimeRangeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeRange = new DateTimeRange(new DateTime('2016-09-08 13:15:00'), new DateTime('2016-09-11 04:00:12'));
 
-        $this->assertSame($expected, $dateTimeRange->contains($contains));
+        self::assertSame($expected, $dateTimeRange->contains($contains));
     }
 
     public function provideContains()

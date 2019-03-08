@@ -11,19 +11,20 @@
 
 namespace Yakamara\DateTime\Tests\Holidays\Preset;
 
+use PHPUnit\Framework\TestCase;
 use Yakamara\DateTime\Date;
 use Yakamara\DateTime\DateTime;
 use Yakamara\DateTime\DateTimeInterface;
 use Yakamara\DateTime\Holidays\Preset\Germany;
 
-final class GermanyTest extends \PHPUnit_Framework_TestCase
+final class GermanyTest extends TestCase
 {
     /**
      * @dataProvider provideIsHoliday
      */
     public function testIsHoliday(bool $expected, DateTimeInterface $input)
     {
-        $this->assertSame($expected, (new Germany())->isHoliday($input));
+        self::assertSame($expected, (new Germany())->isHoliday($input));
     }
 
     public function provideIsHoliday()
@@ -41,7 +42,7 @@ final class GermanyTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsWorkday(bool $expected, DateTimeInterface $input)
     {
-        $this->assertSame($expected, (new Germany())->isWorkday($input));
+        self::assertSame($expected, (new Germany())->isWorkday($input));
     }
 
     public function provideIsWorkday()
@@ -56,14 +57,14 @@ final class GermanyTest extends \PHPUnit_Framework_TestCase
 
     public function getWorkdays()
     {
-        $this->assertSame([1, 2, 3, 4, 5], (new Germany())->getWorkdays());
+        self::assertSame([1, 2, 3, 4, 5], (new Germany())->getWorkdays());
     }
 
     public function testGetHolidays()
     {
         $holidays = (new Germany())->getHolidays(2017);
 
-        $this->assertCount(10, $holidays);
+        self::assertCount(10, $holidays);
 
         $dates = [
             [1, 1],
@@ -79,7 +80,7 @@ final class GermanyTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($dates as list($month, $day)) {
-            $this->assertContains(Date::create(2017, $month, $day), $holidays, '', false, false);
+            self::assertContains(Date::create(2017, $month, $day), $holidays, '', false, false);
         }
     }
 
@@ -88,7 +89,7 @@ final class GermanyTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetEaster(Date $date)
     {
-        $this->assertEquals($date, (new Germany())->getEaster($date->getYear()));
+        self::assertEquals($date, (new Germany())->getEaster($date->getYear()));
     }
 
     public function provideGetEaster()

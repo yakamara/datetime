@@ -58,12 +58,13 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     }
 
     /**
-     * @param string $format
-     * @param string $dateTime
+     * @param string             $format
+     * @param string             $dateTime
+     * @param null|\DateTimeZone $timezone
      *
      * @return static
      */
-    public static function createFromFormat($format, $dateTime, \DateTimeZone $timezone = null): self
+    public static function createFromFormat($format, $dateTime, $timezone = null): self
     {
         $class = static::getClass();
 

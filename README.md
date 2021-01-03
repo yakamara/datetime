@@ -1,3 +1,5 @@
+**DEPRECATED**: Use [hill-valley/fluxcap](https://github.com/hill-valley/fluxcap) instead.
+
 Yakamara DateTime
 =================
 

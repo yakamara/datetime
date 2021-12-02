@@ -88,21 +88,21 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function modify($modify);
+    public function modify(string $modify): \DateTimeImmutable|false;
 
     /**
      * @param \DateInterval $interval
      *
      * @return static
      */
-    public function add($interval);
+    public function add(\DateInterval $interval): \DateTimeImmutable;
 
     /**
      * @param \DateInterval $interval
      *
      * @return static
      */
-    public function sub($interval);
+    public function sub(\DateInterval $interval): \DateTimeImmutable;
 
     /**
      * @param \DateTimeInterface $datetime2
@@ -110,7 +110,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return \DateInterval
      */
-    public function diff($datetime2, $absolute = false);
+    public function diff(\DateTimeInterface $datetime2, bool $absolute = false): \DateInterval;
 
     /**
      * @param int $year
@@ -119,7 +119,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function setDate($year, $month, $day);
+    public function setDate(int $year, int $month, int $day): \DateTimeImmutable;
 
     /**
      * @param int $year
@@ -128,7 +128,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function setISODate($year, $week, $day = 1);
+    public function setISODate(int $year, int $week, int $day = 1): \DateTimeImmutable;
 
     /**
      * @param int $hour
@@ -138,19 +138,19 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function setTime($hour, $minute, $second = 0, $microseconds = 0);
+    public function setTime(int $hour, int $minute, int $second = 0, int $microseconds = 0): \DateTimeImmutable;
 
     /**
      * @param int $timestamp
      *
      * @return static
      */
-    public function setTimestamp($timestamp);
+    public function setTimestamp(int $timestamp): \DateTimeImmutable;
 
     /**
      * @param \DateTimeZone $timezone
      *
      * @return static
      */
-    public function setTimezone($timezone);
+    public function setTimezone(\DateTimeZone $timezone): \DateTimeImmutable;
 }

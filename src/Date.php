@@ -99,32 +99,32 @@ class Date extends AbstractDateTime
         return 1 === $this->addDays(1)->getDay();
     }
 
-    public function add($interval)
+    public function add(\DateInterval $interval): \DateTimeImmutable
     {
         return parent::add($interval)->setTime(0, 0, 0);
     }
 
-    public function sub($interval)
+    public function sub(\DateInterval $interval): \DateTimeImmutable
     {
         return parent::sub($interval)->setTime(0, 0, 0);
     }
 
-    public function modify($modify)
+    public function modify(string $modify): \DateTimeImmutable|false
     {
         return parent::modify($modify)->setTime(0, 0, 0);
     }
 
-    public function setTime($hour, $minute, $second = 0, $microseconds = 0)
+    public function setTime(int $hour, int $minute, int $second = 0, int $microseconds = 0): \DateTimeImmutable
     {
         return parent::setTime(0, 0, 0, 0);
     }
 
-    public function setTimestamp($timestamp)
+    public function setTimestamp(int $timestamp): \DateTimeImmutable
     {
         return parent::setTimestamp($timestamp)->setTime(0, 0, 0);
     }
 
-    public function setTimezone($timezone)
+    public function setTimezone(\DateTimeZone $timezone): \DateTimeImmutable
     {
         return new self($this->formatIso(), $timezone);
     }

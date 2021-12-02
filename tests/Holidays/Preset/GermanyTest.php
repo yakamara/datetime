@@ -80,7 +80,7 @@ final class GermanyTest extends TestCase
         ];
 
         foreach ($dates as [$month, $day]) {
-            self::assertContains(Date::create(2017, $month, $day), $holidays, '', false, false);
+            self::assertContainsEquals(Date::create(2017, $month, $day), $holidays);
         }
     }
 

@@ -15,7 +15,7 @@ use Yakamara\DateTime\Range\DateTimeRange;
 
 class Date extends AbstractDateTime
 {
-    public function __construct(string $date = 'today', \DateTimeZone $timezone = null)
+    public function __construct(string $date = 'today', ?\DateTimeZone $timezone = null)
     {
         parent::__construct(self::stripTime($date), $timezone);
     }
@@ -51,7 +51,7 @@ class Date extends AbstractDateTime
         return $this->format('Y-m-d');
     }
 
-    public function formatIntl(int $format = null, int $timeFormat = null): string
+    public function formatIntl(?int $format = null, ?int $timeFormat = null): string
     {
         if (!class_exists(\IntlDateFormatter::class)) {
             throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
@@ -109,7 +109,7 @@ class Date extends AbstractDateTime
         return parent::sub($interval)->setTime(0, 0, 0);
     }
 
-    public function modify(string $modify): \DateTimeImmutable|false
+    public function modify(string $modify): \DateTimeImmutable
     {
         return parent::modify($modify)->setTime(0, 0, 0);
     }

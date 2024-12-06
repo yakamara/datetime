@@ -50,7 +50,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
     /**
      * @return static
      */
-    public static function createFromTimestamp(int $timestamp): self
+    public static function createFromTimestamp(int|float $timestamp): static
     {
         $class = static::getClass();
 
@@ -96,7 +96,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return strftime($format, $this->getTimestamp());
     }
 
-    public function formatIntl(int $format = null, int $timeFormat = null): string
+    public function formatIntl(?int $format = null, ?int $timeFormat = null): string
     {
         if (!class_exists(\IntlDateFormatter::class)) {
             throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
@@ -167,21 +167,21 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return $this->modify($days.' days');
     }
 
-    public function isWorkday(HolidaysInterface $holidays = null): bool
+    public function isWorkday(?HolidaysInterface $holidays = null): bool
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
         return $holidays->isWorkday($this);
     }
 
-    public function isHoliday(HolidaysInterface $holidays = null): bool
+    public function isHoliday(?HolidaysInterface $holidays = null): bool
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
         return $holidays->isHoliday($this);
     }
 
-    public function addWorkdays(int $days, HolidaysInterface $holidays = null): DateTimeInterface
+    public function addWorkdays(int $days, ?HolidaysInterface $holidays = null): DateTimeInterface
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 
@@ -198,7 +198,7 @@ abstract class AbstractDateTime extends \DateTimeImmutable implements DateTimeIn
         return $date;
     }
 
-    public function diffWorkdays(DateTimeInterface $date2, HolidaysInterface $holidays = null): int
+    public function diffWorkdays(DateTimeInterface $date2, ?HolidaysInterface $holidays = null): int
     {
         $holidays = $holidays ?: self::getDefaultHolidays();
 

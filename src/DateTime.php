@@ -51,7 +51,7 @@ class DateTime extends AbstractDateTime
         return $this->format('H:i:s');
     }
 
-    public function formatIntlDate(int $format = null): string
+    public function formatIntlDate(?int $format = null): string
     {
         if (!class_exists(\IntlDateFormatter::class)) {
             throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));
@@ -60,7 +60,7 @@ class DateTime extends AbstractDateTime
         return static::formatIntl($format, \IntlDateFormatter::NONE);
     }
 
-    public function formatIntlTime(int $format = null): string
+    public function formatIntlTime(?int $format = null): string
     {
         if (!class_exists(\IntlDateFormatter::class)) {
             throw new \Exception(sprintf('%s can not be used without the intl extension.', __METHOD__));

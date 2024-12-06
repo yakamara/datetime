@@ -21,7 +21,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function formatLocalized(string $format): string;
 
-    public function formatIntl(int $format = null, int $timeFormat = null): string;
+    public function formatIntl(?int $format = null, ?int $timeFormat = null): string;
 
     public function toMutable(): \DateTime;
 
@@ -58,14 +58,14 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return bool
      */
-    public function isWorkday(HolidaysInterface $holidays = null): bool;
+    public function isWorkday(?HolidaysInterface $holidays = null): bool;
 
     /**
      * @param null|HolidaysInterface $holidays
      *
      * @return bool
      */
-    public function isHoliday(HolidaysInterface $holidays = null): bool;
+    public function isHoliday(?HolidaysInterface $holidays = null): bool;
 
     /**
      * @param int                    $days
@@ -73,7 +73,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return static
      */
-    public function addWorkdays(int $days, HolidaysInterface $holidays = null): self;
+    public function addWorkdays(int $days, ?HolidaysInterface $holidays = null): self;
 
     /**
      * @param self                   $date
@@ -81,7 +81,7 @@ interface DateTimeInterface extends \DateTimeInterface
      *
      * @return int
      */
-    public function diffWorkdays(self $date, HolidaysInterface $holidays = null): int;
+    public function diffWorkdays(self $date, ?HolidaysInterface $holidays = null): int;
 
     /**
      * @param string $modify
